@@ -1,0 +1,23 @@
+{
+  "@@locale": "vi",
+  "language": "Ngôn ngữ",
+  "english": "Tiếng Anh",
+  "vietnamese": "Tiếng Việt",
+  "homepage": "Trang chủ",
+  "now_showing": "Đang chiếu",
+  "popular": "Phổ biến",
+  "top_rated": "Đánh giá cao",
+  "upcoming": "Sắp chiếu",
+  "see_more": "Xem thêm",
+  "length": "Thời lượng",
+  "release_date": "Ngày khởi chiếu",
+  "description": "Mô tả",
+  "cast": "Diễn viên",
+  "crew": "Đội ngũ",
+  "hours": "Tiếng",
+  "minutes": "Phút",
+  "recommendations": "Đề xuất",
+  "similar": "Phim cùng thể loại",
+  "trailers": "Trailers",
+  "loading": "Đang tải thêm..."
+}

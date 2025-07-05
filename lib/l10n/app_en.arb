@@ -1,0 +1,23 @@
+{
+  "@@locale": "en",
+  "language": "Language",
+  "english": "English",
+  "vietnamese": "Vietnamese",
+  "homepage": "HomePage",
+  "now_showing": "Now showing",
+  "popular": "Popular",
+  "top_rated": "Top rated",
+  "upcoming": "Upcoming",
+  "see_more": "See more",
+  "length": "Length",
+  "release_date": "Release date",
+  "description": "Description",
+  "cast": "Cast",
+  "crew": "Crew",
+  "hours": "Hours",
+  "minutes": "Minutes",
+  "recommendations": "Recommendations",
+  "similar": "Similar",
+  "trailers": "Trailers",
+  "loading": "Loading more..."
+}
