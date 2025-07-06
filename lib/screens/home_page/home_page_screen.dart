@@ -25,8 +25,7 @@ class HomePageScreen extends StatelessWidget {
         appBarActions: [
           GestureDetector(
             onTap: () {
-              context
-                  .push('${RouteName.allListMovie}/${MovieType.search.name}');
+              context.push(RouteName.listSuggestKeyword);
             },
             child: SvgShow(uri: Assets.icons.icSearch),
           )

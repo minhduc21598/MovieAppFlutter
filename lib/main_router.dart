@@ -5,6 +5,7 @@ import 'package:movie_world/screens/all_cast_and_crew/all_cast_and_crew.dart';
 import 'package:movie_world/screens/all_list_movie/all_list_movie.dart';
 import 'package:movie_world/screens/detail_page/detail_page_screen.dart';
 import 'package:movie_world/screens/home_page/home_page_screen.dart';
+import 'package:movie_world/screens/list_suggest_keyword/list_suggest_keyword.dart';
 
 class MainRouter {
   static GoRouter build() {
@@ -32,6 +33,10 @@ class MainRouter {
             movieType: MovieType.values
                 .byName(state.pathParameters['movieType'] ?? ''),
           ),
+        ),
+        GoRoute(
+          path: RouteName.listSuggestKeyword,
+          builder: (context, state) => const ListSuggestKeyword(),
         ),
       ],
     );

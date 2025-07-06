@@ -3,4 +3,5 @@ class RouteName {
   static const String detailPage = '/detailPage';
   static const String allCastAndCrew = '/allCastAndCrew';
   static const String allListMovie = '/allListMovie';
+  static const String listSuggestKeyword = '/listSuggestKeyword';
 }

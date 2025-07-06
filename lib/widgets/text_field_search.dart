@@ -5,18 +5,27 @@ import 'package:movie_world/utilities/size_config_utitilites.dart';
 import 'package:movie_world/widgets/svg_show.dart';
 
 class TextFieldSearch extends StatefulWidget {
-  const TextFieldSearch({super.key});
+  final Function? onChangeText;
+  final bool? enabled;
+  final String? initialValue;
+  const TextFieldSearch({
+    super.key,
+    this.onChangeText,
+    this.enabled,
+    this.initialValue,
+  });
 
   @override
   State<TextFieldSearch> createState() => _TextFieldSearchState();
 }
 
 class _TextFieldSearchState extends State<TextFieldSearch> {
-  final TextEditingController textEditingController = TextEditingController();
+  late final TextEditingController textEditingController;
 
   @override
   void initState() {
     super.initState();
+    textEditingController = TextEditingController(text: widget.initialValue);
     textEditingController.addListener(() {
       setState(() {});
     });
@@ -30,6 +39,9 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
 
   void clearTextValue() {
     textEditingController.clear();
+    if (widget.onChangeText != null) {
+      widget.onChangeText!('');
+    }
   }
 
   @override
@@ -38,8 +50,14 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
 
     return TextField(
       controller: textEditingController,
+      onChanged: (value) {
+        if (widget.onChangeText != null) {
+          widget.onChangeText!(value);
+        }
+      },
+      enabled: widget.enabled,
       style: TextStyle(
-          fontSize: SizeConfig.getScaleFontSize(14), color: Colors.black87),
+          fontSize: SizeConfig.getScaleFontSize(14), color: Colors.black),
       decoration: InputDecoration(
           prefixIcon: Padding(
             padding: EdgeInsets.all(SizeConfig.getScaleWidth(10)),
@@ -47,7 +65,9 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
               uri: Assets.icons.icSearch,
             ),
           ),
-          suffixIcon: textEditingController.text.isNotEmpty
+          suffixIcon: textEditingController.text.isNotEmpty &&
+                  (widget.enabled == null ||
+                      (widget.enabled != null && widget.enabled!))
               ? Padding(
                   padding: EdgeInsets.all(SizeConfig.getScaleWidth(16)),
                   child: GestureDetector(
@@ -68,10 +88,15 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
                 SizeConfig.getScaleWidth(24),
               ),
               borderSide: BorderSide.none),
+          disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                SizeConfig.getScaleWidth(24),
+              ),
+              borderSide: BorderSide.none),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(SizeConfig.getScaleWidth(24)),
               borderSide: BorderSide.none),
-          fillColor: Colors.grey[200],
+          fillColor: Colors.black12,
           filled: true,
           counterText: ''),
       maxLength: 100,

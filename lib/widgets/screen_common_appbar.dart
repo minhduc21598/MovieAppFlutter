@@ -7,19 +7,16 @@ class ScreenCommonAppBar extends StatelessWidget {
   final Widget child;
   final Widget? drawerItem;
   final Widget? floatingActionButton;
-  final Widget? flexibleSpace;
   final List<Widget>? appBarActions;
-  final bool? noBackButton;
 
-  const ScreenCommonAppBar(
-      {super.key,
-      required this.title,
-      required this.child,
-      this.drawerItem,
-      this.floatingActionButton,
-      this.appBarActions,
-      this.noBackButton,
-      this.flexibleSpace});
+  const ScreenCommonAppBar({
+    super.key,
+    required this.title,
+    required this.child,
+    this.drawerItem,
+    this.floatingActionButton,
+    this.appBarActions,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +32,9 @@ class ScreenCommonAppBar extends StatelessWidget {
         ),
         centerTitle: true,
         actions: appBarActions,
-        flexibleSpace: flexibleSpace,
         actionsPadding:
             EdgeInsets.symmetric(horizontal: SizeConfig.getScaleWidth(16)),
-        leading: drawerItem == null &&
-                ((noBackButton != null && !noBackButton!) ||
-                    noBackButton == null)
+        leading: drawerItem == null
             ? Padding(
                 padding: EdgeInsets.all(SizeConfig.getScaleWidth(12)),
                 child: BackClosingButton(),

@@ -1,0 +1,74 @@
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:movie_world/constants/api_endpoint.dart';
+import 'package:movie_world/core/network_client.dart';
+import 'package:movie_world/screens/list_suggest_keyword/components/suggest_keyword_item.dart';
+import 'package:movie_world/screens/list_suggest_keyword/models/suggest_keyword_model.dart';
+import 'package:movie_world/widgets/header_search_bar.dart';
+
+class ListSuggestKeyword extends StatefulWidget {
+  const ListSuggestKeyword({super.key});
+
+  @override
+  State<ListSuggestKeyword> createState() => _ListSuggestKeywordState();
+}
+
+class _ListSuggestKeywordState extends State<ListSuggestKeyword> {
+  List<String> suggestKeywords = [];
+
+  Future<void> getSuggestKeyword(String value) async {
+    try {
+      Response response = await NetworkClient.dio
+          .get(ApiEndpoint.suggestKeyword, queryParameters: {'query': value});
+      final listData = (response.data['results'] as List)
+          .map((item) =>
+              SuggestKeywordModel.fromJson(item as Map<String, dynamic>).name ??
+              '')
+          .toList();
+      setState(() {
+        suggestKeywords =
+            listData.length < 10 ? listData : listData.sublist(0, 10);
+      });
+    } catch (e) {
+      //
+    }
+  }
+
+  void onChangeKeyWord(String value) {
+    if (value != '') {
+      getSuggestKeyword(value);
+    } else {
+      setState(() {
+        suggestKeywords = [];
+      });
+    }
+  }
+
+  void onPressKeyword(String value) {
+    //
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: SafeArea(
+            child: Column(
+      children: [
+        HeaderSearchBar(onChangeKeyWord: onChangeKeyWord),
+        Expanded(
+            child: ListView.separated(
+                shrinkWrap: true,
+                itemBuilder: (context, index) => SuggestKeywordItem(
+                    onPressKeyword: () {
+                      onPressKeyword(suggestKeywords[index]);
+                    },
+                    content: suggestKeywords[index]),
+                separatorBuilder: (context, index) => Divider(
+                      thickness: 0.5,
+                      color: Colors.grey[300],
+                    ),
+                itemCount: suggestKeywords.length)),
+      ],
+    )));
+  }
+}
