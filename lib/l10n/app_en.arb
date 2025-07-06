@@ -19,5 +19,6 @@
   "recommendations": "Recommendations",
   "similar": "Similar",
   "trailers": "Trailers",
-  "loading": "Loading more..."
+  "loading": "Loading more...",
+  "enter_movie_name": "Enter movie name"
 }

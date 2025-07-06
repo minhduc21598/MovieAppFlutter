@@ -214,6 +214,12 @@ abstract class Strings {
   /// In en, this message translates to:
   /// **'Loading more...'**
   String get loading;
+
+  /// No description provided for @enter_movie_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter movie name'**
+  String get enter_movie_name;
 }
 
 class _StringsDelegate extends LocalizationsDelegate<Strings> {

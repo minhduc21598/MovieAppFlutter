@@ -19,5 +19,6 @@
   "recommendations": "Đề xuất",
   "similar": "Phim cùng thể loại",
   "trailers": "Trailers",
-  "loading": "Đang tải thêm..."
+  "loading": "Đang tải thêm...",
+  "enter_movie_name": "Nhập tên phim"
 }

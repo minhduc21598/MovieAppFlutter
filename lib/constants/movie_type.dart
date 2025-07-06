@@ -2,5 +2,6 @@ enum MovieType {
   nowShowing,
   upComing,
   topRated,
-  popular
+  popular,
+  search,
 }

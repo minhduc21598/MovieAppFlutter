@@ -11,6 +11,7 @@ class $AssetsIconsGen {
   String get icPlayVideo => 'assets/icons/ic_play_video.svg';
   String get icDoubleArrow => 'assets/icons/ic_double_arrow.svg';
   String get icSearch => 'assets/icons/ic_search.svg';
+  String get icClose => 'assets/icons/ic_close.svg';
 }
 
 class $AssetsImagesGen {

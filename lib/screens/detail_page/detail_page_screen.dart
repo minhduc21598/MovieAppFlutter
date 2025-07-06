@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:movie_world/constants/api_endpoint.dart';
 import 'package:movie_world/core/network_client.dart';
 import 'package:movie_world/gen/strings.dart';
@@ -115,11 +114,11 @@ class _DetailPageScreenState extends State<DetailPageScreen> {
                       );
                     },
                   ),
-                  leading: BackClosingButton(
-                    color: _isCollapsed ? Colors.black : Colors.white,
-                    onClose: () {
-                      context.pop();
-                    },
+                  leading: Padding(
+                    padding: EdgeInsets.all(SizeConfig.getScaleWidth(12)),
+                    child: BackClosingButton(
+                      color: _isCollapsed ? Colors.black54 : Colors.white,
+                    ),
                   ),
                   backgroundColor: Colors.white,
                 ),

@@ -14,4 +14,7 @@ class ApiEndpoint {
   static final credits = '/credits';
   static final videos = '/videos';
   static final genres = '/genre/movie/list';
+  static final suggestKeyword = '/search/keyword';
+  static final searchByKeyword = '/search/movie';
+  
 }

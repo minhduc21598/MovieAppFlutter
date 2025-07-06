@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:movie_world/gen/assets.gen.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
 import 'package:movie_world/widgets/svg_show.dart';
@@ -17,6 +17,7 @@ class RatingPoint extends StatelessWidget {
         SvgShow(
           uri: Assets.icons.icRatingStar,
           iconSize: SizeConfig.getScaleHeight(12),
+          color: Colors.yellow[600],
         ),
         Text(
           '$roundedRate/10 IMDb',

@@ -10,12 +10,14 @@ import 'package:movie_world/gen/strings.dart';
 import 'package:movie_world/screens/all_list_movie/components/all_list_shimmer_screen/all_list_shimmer.dart';
 import 'package:movie_world/screens/home_page/models/movie_model.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
+import 'package:movie_world/widgets/back_closing_button.dart';
 import 'package:movie_world/widgets/horizontal_movie_list/components/movie_item.dart';
 import 'package:movie_world/widgets/loading_footer.dart';
 import 'package:movie_world/widgets/screen_common_appbar.dart';
 import 'package:movie_world/widgets/scroll_to_top_button.dart';
 import 'package:movie_world/widgets/shimmer_loading/shimmer.dart';
 import 'package:movie_world/widgets/svg_show.dart';
+import 'package:movie_world/widgets/text_field_search.dart';
 
 class AllListMovie extends StatefulWidget {
   final MovieType movieType;
@@ -32,13 +34,18 @@ class _AllListMovieState extends State<AllListMovie> {
   int page = 1;
   int totalResult = 0;
   List<MovieModel> movies = [];
+  String keyword = '';
+  List<String> suggestKeywords = [];
   final ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
+
     scrollController.addListener(onScroll);
-    getListMovie();
+    if (widget.movieType != MovieType.search) {
+      getListMovie();
+    }
   }
 
   @override
@@ -82,8 +89,12 @@ class _AllListMovieState extends State<AllListMovie> {
 
     try {
       final endpoint = getEndpointByType();
-      Response response = await NetworkClient.dio
-          .get(endpoint, queryParameters: {'page': ++page});
+      final param = widget.movieType != MovieType.search
+          ? {'page': ++page}
+          : {'page': ++page, 'query': keyword};
+
+      Response response =
+          await NetworkClient.dio.get(endpoint, queryParameters: param);
       final newMovies = (response.data['results'] as List)
           .map((item) => MovieModel.fromJson(item as Map<String, dynamic>))
           .toList();
@@ -107,8 +118,12 @@ class _AllListMovieState extends State<AllListMovie> {
 
     try {
       final endpoint = getEndpointByType();
+      final param = widget.movieType != MovieType.search
+          ? {'page': 1}
+          : {'page': 1, 'query': keyword};
+
       Response response =
-          await NetworkClient.dio.get(endpoint, queryParameters: {'page': 1});
+          await NetworkClient.dio.get(endpoint, queryParameters: param);
       setState(() {
         movies = (response.data['results'] as List)
             .map((item) => MovieModel.fromJson(item as Map<String, dynamic>))
@@ -132,6 +147,8 @@ class _AllListMovieState extends State<AllListMovie> {
         return ApiEndpoint.topRated;
       case MovieType.upComing:
         return ApiEndpoint.upcoming;
+      case MovieType.search:
+        return ApiEndpoint.searchByKeyword;
     }
   }
 
@@ -147,6 +164,8 @@ class _AllListMovieState extends State<AllListMovie> {
         return strings.top_rated;
       case MovieType.upComing:
         return strings.upcoming;
+      case MovieType.search:
+        return '';
     }
   }
 
@@ -155,19 +174,44 @@ class _AllListMovieState extends State<AllListMovie> {
     final title = getTitleByType();
     final itemSize =
         (SizeConfig.screenWidth - SizeConfig.getScaleWidth(44)) / 2;
+    final Strings strings = Strings.of(context)!;
 
     return ScreenCommonAppBar(
       title: title,
+      noBackButton: widget.movieType == MovieType.search,
       floatingActionButton:
           showScrollToTop ? ScrollToTopButton(scrollToTop: scrollToTop) : null,
-      appBarActions: [
-        GestureDetector(
-          onTap: () {
-            context.push(RouteName.searchMovie);
-          },
-          child: SvgShow(uri: Assets.icons.icSearch),
-        )
-      ],
+      appBarActions: widget.movieType != MovieType.search
+          ? [
+              GestureDetector(
+                onTap: () {
+                  context.push(
+                      '${RouteName.allListMovie}/${MovieType.search.name}');
+                },
+                child: SvgShow(uri: Assets.icons.icSearch),
+              )
+            ]
+          : null,
+      flexibleSpace: widget.movieType == MovieType.search
+          ? LayoutBuilder(
+              builder: (context, constraints) {
+                return SafeArea(
+                    child: Container(
+                  width: SizeConfig.screenWidth,
+                  padding: EdgeInsets.only(
+                      right: SizeConfig.getScaleWidth(16),
+                      left: SizeConfig.getScaleWidth(8)),
+                  child: Row(
+                    spacing: SizeConfig.getScaleWidth(12),
+                    children: [
+                      BackClosingButton(),
+                      Expanded(child: TextFieldSearch())
+                    ],
+                  ),
+                ));
+              },
+            )
+          : null,
       child: isLoading
           ? Shimmer(
               child: AllListShimmer(isLoading: isLoading),
@@ -179,8 +223,10 @@ class _AllListMovieState extends State<AllListMovie> {
                         onRefresh: onRefresh,
                         child: GridView.builder(
                           controller: scrollController,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: SizeConfig.getScaleWidth(16)),
+                          padding: EdgeInsets.only(
+                              left: SizeConfig.getScaleWidth(16),
+                              right: SizeConfig.getScaleWidth(16),
+                              top: SizeConfig.getScaleWidth(12)),
                           itemCount: movies.length,
                           itemBuilder: (context, index) {
                             final movie = movies[index];

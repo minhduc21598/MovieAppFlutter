@@ -67,4 +67,7 @@ class StringsEn extends Strings {
 
   @override
   String get loading => 'Loading more...';
+
+  @override
+  String get enter_movie_name => 'Enter movie name';
 }

@@ -67,4 +67,7 @@ class StringsVi extends Strings {
 
   @override
   String get loading => 'Đang tải thêm...';
+
+  @override
+  String get enter_movie_name => 'Nhập tên phim';
 }

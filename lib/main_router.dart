@@ -5,7 +5,6 @@ import 'package:movie_world/screens/all_cast_and_crew/all_cast_and_crew.dart';
 import 'package:movie_world/screens/all_list_movie/all_list_movie.dart';
 import 'package:movie_world/screens/detail_page/detail_page_screen.dart';
 import 'package:movie_world/screens/home_page/home_page_screen.dart';
-import 'package:movie_world/screens/search_movie/search_movie.dart';
 
 class MainRouter {
   static GoRouter build() {
@@ -33,10 +32,6 @@ class MainRouter {
             movieType: MovieType.values
                 .byName(state.pathParameters['movieType'] ?? ''),
           ),
-        ),
-        GoRoute(
-          path: RouteName.searchMovie,
-          builder: (context, state) => const SearchMovie(),
         ),
       ],
     );
