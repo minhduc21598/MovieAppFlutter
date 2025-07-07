@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_world/constants/api_endpoint.dart';
+import 'package:movie_world/constants/language_key.dart';
 import 'package:movie_world/constants/route_name.dart';
 import 'package:movie_world/core/network_client.dart';
 import 'package:movie_world/gen/strings.dart';
@@ -35,8 +36,9 @@ class _CastAndCrewState extends State<CastAndCrew> {
   Future<void> getListCast() async {
     isLoading = true;
     try {
-      Response response = await NetworkClient.dio
-          .get('${ApiEndpoint.movie}/${widget.movieId}${ApiEndpoint.credits}');
+      Response response = await NetworkClient.dio.get(
+          '${ApiEndpoint.movie}/${widget.movieId}${ApiEndpoint.credits}',
+          queryParameters: {'language': LanguageKey.english});
       final data = CastModel.fromJson(response.data);
       setState(() {
         castData = data;

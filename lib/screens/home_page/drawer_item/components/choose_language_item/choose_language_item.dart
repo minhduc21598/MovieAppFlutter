@@ -45,6 +45,7 @@ class ChooseLanguageItem extends StatelessWidget {
           leading: SvgShow(
             uri: Assets.icons.icEn,
             iconSize: SizeConfig.getScaleWidth(18),
+            noColorFilter: true,
           ),
           onTap: () {
             context.read<LanguageProvider>().saveLanguage(LanguageKey.english);
@@ -69,6 +70,7 @@ class ChooseLanguageItem extends StatelessWidget {
           leading: SvgShow(
             uri: Assets.icons.icVi,
             iconSize: SizeConfig.getScaleWidth(18),
+            noColorFilter: true,
           ),
           onTap: () {
             context

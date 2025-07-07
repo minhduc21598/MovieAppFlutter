@@ -53,6 +53,7 @@ class ItemTrailer extends StatelessWidget {
                   child: SvgShow(
                     uri: Assets.icons.icPlayVideo,
                     iconSize: SizeConfig.getScaleWidth(35),
+                    color: Colors.white,
                   ),
                 )
               ],

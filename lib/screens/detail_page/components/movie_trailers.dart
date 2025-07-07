@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_world/constants/api_endpoint.dart';
+import 'package:movie_world/constants/language_key.dart';
 import 'package:movie_world/core/network_client.dart';
 import 'package:movie_world/gen/strings.dart';
 import 'package:movie_world/screens/detail_page/components/item_trailer.dart';
@@ -33,8 +34,9 @@ class _MovieTrailersState extends State<MovieTrailers> {
   Future<void> getTrailers() async {
     isLoading = true;
     try {
-      Response response = await NetworkClient.dio
-          .get('${ApiEndpoint.movie}/${widget.movieId}${ApiEndpoint.videos}');
+      Response response = await NetworkClient.dio.get(
+          '${ApiEndpoint.movie}/${widget.movieId}${ApiEndpoint.videos}',
+          queryParameters: {'language': LanguageKey.english});
       setState(() {
         trailers = (response.data['results'] as List)
             .map((item) => TrailerModel.fromJson(item as Map<String, dynamic>))

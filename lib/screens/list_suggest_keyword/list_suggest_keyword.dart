@@ -27,7 +27,7 @@ class _ListSuggestKeywordState extends State<ListSuggestKeyword> {
           .toList();
       setState(() {
         suggestKeywords =
-            listData.length < 10 ? listData : listData.sublist(0, 10);
+            listData.length < 6 ? listData : listData.sublist(0, 6);
       });
     } catch (e) {
       //
