@@ -7,41 +7,44 @@ class ScreenCommonAppBar extends StatelessWidget {
   final Widget child;
   final Widget? drawerItem;
   final Widget? floatingActionButton;
+  final bool? noAppBar;
   final List<Widget>? appBarActions;
 
-  const ScreenCommonAppBar({
-    super.key,
-    required this.title,
-    required this.child,
-    this.drawerItem,
-    this.floatingActionButton,
-    this.appBarActions,
-  });
+  const ScreenCommonAppBar(
+      {super.key,
+      required this.title,
+      required this.child,
+      this.drawerItem,
+      this.floatingActionButton,
+      this.appBarActions,
+      this.noAppBar});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          title,
-          style: TextStyle(
-              fontSize: SizeConfig.getScaleFontSize(16),
-              fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        actions: appBarActions,
-        actionsPadding:
-            EdgeInsets.symmetric(horizontal: SizeConfig.getScaleWidth(16)),
-        leading: drawerItem == null
-            ? Padding(
-                padding: EdgeInsets.all(SizeConfig.getScaleWidth(12)),
-                child: BackClosingButton(),
-              )
-            : null,
-        automaticallyImplyLeading: drawerItem != null,
-      ),
+      appBar: noAppBar == true
+          ? null
+          : AppBar(
+              backgroundColor: Colors.white,
+              title: Text(
+                title,
+                style: TextStyle(
+                    fontSize: SizeConfig.getScaleFontSize(16),
+                    fontWeight: FontWeight.bold),
+              ),
+              centerTitle: true,
+              actions: appBarActions,
+              actionsPadding: EdgeInsets.symmetric(
+                  horizontal: SizeConfig.getScaleWidth(16)),
+              leading: drawerItem == null
+                  ? Padding(
+                      padding: EdgeInsets.all(SizeConfig.getScaleWidth(12)),
+                      child: BackClosingButton(),
+                    )
+                  : null,
+              automaticallyImplyLeading: drawerItem != null,
+            ),
       body: SafeArea(child: child),
       drawer: drawerItem,
       floatingActionButton: floatingActionButton,

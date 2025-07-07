@@ -172,6 +172,7 @@ class _AllListMovieState extends State<AllListMovie> {
         (SizeConfig.screenWidth - SizeConfig.getScaleWidth(44)) / 2;
 
     return ScreenCommonAppBar(
+      noAppBar: widget.movieType == MovieType.search,
       title: title,
       floatingActionButton:
           showScrollToTop ? ScrollToTopButton(scrollToTop: scrollToTop) : null,
@@ -186,11 +187,24 @@ class _AllListMovieState extends State<AllListMovie> {
             ]
           : null,
       child: isLoading
-          ? Shimmer(
-              child: AllListShimmer(isLoading: isLoading),
+          ? Column(
+              children: [
+                if (widget.movieType == MovieType.search)
+                  HeaderSearchBar(
+                    valueSearchbar: widget.keywordSearch,
+                  ),
+                Expanded(
+                    child: Shimmer(
+                  child: AllListShimmer(isLoading: isLoading),
+                ))
+              ],
             )
           : Column(
               children: [
+                if (widget.movieType == MovieType.search)
+                  HeaderSearchBar(
+                    valueSearchbar: widget.keywordSearch,
+                  ),
                 Expanded(
                     child: RefreshIndicator(
                         onRefresh: onRefresh,
