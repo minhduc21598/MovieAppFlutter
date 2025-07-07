@@ -5,7 +5,8 @@ import 'package:movie_world/widgets/text_field_search.dart';
 
 class HeaderSearchBar extends StatelessWidget {
   final Function? onChangeKeyWord;
-  const HeaderSearchBar({super.key, this.onChangeKeyWord});
+  final String? valueSearchbar;
+  const HeaderSearchBar({super.key, this.onChangeKeyWord, this.valueSearchbar});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,12 @@ class HeaderSearchBar extends StatelessWidget {
         spacing: SizeConfig.getScaleWidth(12),
         children: [
           BackClosingButton(),
-          Expanded(child: TextFieldSearch(onChangeText: onChangeKeyWord))
+          Expanded(
+              child: TextFieldSearch(
+            onChangeText: onChangeKeyWord,
+            enabled: onChangeKeyWord != null,
+            initialValue: valueSearchbar,
+          ))
         ],
       ),
     );

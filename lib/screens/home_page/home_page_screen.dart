@@ -5,6 +5,7 @@ import 'package:movie_world/constants/movie_type.dart';
 import 'package:movie_world/constants/route_name.dart';
 import 'package:movie_world/gen/assets.gen.dart';
 import 'package:movie_world/gen/strings.dart';
+import 'package:movie_world/screens/all_list_movie/all_list_movie_param.dart';
 import 'package:movie_world/screens/home_page/drawer_item/drawer_item.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
 import 'package:movie_world/widgets/horizontal_movie_list/horizontal_movie_list.dart';
@@ -14,6 +15,11 @@ import 'package:movie_world/widgets/vertical_movie_list/vertical_movie_list.dart
 
 class HomePageScreen extends StatelessWidget {
   const HomePageScreen({super.key});
+
+  void goToAllMovieList(BuildContext context) {
+    final param = AllListMovieParam(movieType: MovieType.nowShowing);
+    context.push(RouteName.allListMovie, extra: param);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +45,7 @@ class HomePageScreen extends StatelessWidget {
                 endpoint: ApiEndpoint.nowPlaying,
                 title: strings.now_showing,
                 onSeeMore: () {
-                  context.push(
-                      '${RouteName.allListMovie}/${MovieType.nowShowing.name}');
+                  goToAllMovieList(context);
                 },
               ),
               Column(

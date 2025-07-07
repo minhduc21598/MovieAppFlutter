@@ -1,8 +1,8 @@
 import 'package:go_router/go_router.dart';
-import 'package:movie_world/constants/movie_type.dart';
 import 'package:movie_world/constants/route_name.dart';
 import 'package:movie_world/screens/all_cast_and_crew/all_cast_and_crew.dart';
 import 'package:movie_world/screens/all_list_movie/all_list_movie.dart';
+import 'package:movie_world/screens/all_list_movie/all_list_movie_param.dart';
 import 'package:movie_world/screens/detail_page/detail_page_screen.dart';
 import 'package:movie_world/screens/home_page/home_page_screen.dart';
 import 'package:movie_world/screens/list_suggest_keyword/list_suggest_keyword.dart';
@@ -28,11 +28,15 @@ class MainRouter {
           ),
         ),
         GoRoute(
-          path: '${RouteName.allListMovie}/:movieType',
-          builder: (context, state) => AllListMovie(
-            movieType: MovieType.values
-                .byName(state.pathParameters['movieType'] ?? ''),
-          ),
+          path: RouteName.allListMovie,
+          builder: (context, state) {
+            final movieParam = state.extra as AllListMovieParam;
+
+            return AllListMovie(
+              movieType: movieParam.movieType,
+              keywordSearch: movieParam.keywordSearch,
+            );
+          },
         ),
         GoRoute(
           path: RouteName.listSuggestKeyword,

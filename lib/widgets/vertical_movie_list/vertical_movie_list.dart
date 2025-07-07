@@ -5,6 +5,7 @@ import 'package:movie_world/constants/api_endpoint.dart';
 import 'package:movie_world/constants/movie_type.dart';
 import 'package:movie_world/constants/route_name.dart';
 import 'package:movie_world/core/network_client.dart';
+import 'package:movie_world/screens/all_list_movie/all_list_movie_param.dart';
 import 'package:movie_world/screens/home_page/models/genre_model.dart';
 import 'package:movie_world/screens/home_page/models/movie_model.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
@@ -77,6 +78,16 @@ class _VerticalMovieListState extends State<VerticalMovieList> {
     }
   }
 
+  void goToAllMovieList(BuildContext context) {
+    if (isLoadingMovies || isLoadingGenres) {
+      return;
+    }
+
+    final param =
+        AllListMovieParam(movieType: widget.movieType ?? MovieType.nowShowing);
+    context.push(RouteName.allListMovie, extra: param);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -85,11 +96,7 @@ class _VerticalMovieListState extends State<VerticalMovieList> {
         TitleCategory(
           title: widget.title,
           onSeeMore: () {
-            if (isLoadingMovies || isLoadingGenres) {
-              return;
-            }
-            context.push(
-                '${RouteName.allListMovie}/${widget.movieType?.name ?? MovieType.nowShowing.name}');
+            goToAllMovieList(context);
           },
         ),
         isLoadingMovies || isLoadingGenres

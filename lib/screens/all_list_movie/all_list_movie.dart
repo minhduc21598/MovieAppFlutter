@@ -10,6 +10,7 @@ import 'package:movie_world/gen/strings.dart';
 import 'package:movie_world/screens/all_list_movie/components/all_list_shimmer_screen/all_list_shimmer.dart';
 import 'package:movie_world/screens/home_page/models/movie_model.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
+import 'package:movie_world/widgets/header_search_bar.dart';
 import 'package:movie_world/widgets/horizontal_movie_list/components/movie_item.dart';
 import 'package:movie_world/widgets/loading_footer.dart';
 import 'package:movie_world/widgets/screen_common_appbar.dart';
@@ -19,7 +20,8 @@ import 'package:movie_world/widgets/svg_show.dart';
 
 class AllListMovie extends StatefulWidget {
   final MovieType movieType;
-  const AllListMovie({super.key, required this.movieType});
+  final String? keywordSearch;
+  const AllListMovie({super.key, required this.movieType, this.keywordSearch});
 
   @override
   State<AllListMovie> createState() => _AllListMovieState();
@@ -32,7 +34,6 @@ class _AllListMovieState extends State<AllListMovie> {
   int page = 1;
   int totalResult = 0;
   List<MovieModel> movies = [];
-  String keyword = '';
   final ScrollController scrollController = ScrollController();
 
   @override
@@ -40,9 +41,7 @@ class _AllListMovieState extends State<AllListMovie> {
     super.initState();
 
     scrollController.addListener(onScroll);
-    if (widget.movieType != MovieType.search) {
-      getListMovie('');
-    }
+    getListMovie();
   }
 
   @override
@@ -76,7 +75,7 @@ class _AllListMovieState extends State<AllListMovie> {
 
   Future<void> onRefresh() async {
     page = 1;
-    getListMovie('');
+    getListMovie();
   }
 
   Future<void> loadMoreMovie() async {
@@ -88,7 +87,7 @@ class _AllListMovieState extends State<AllListMovie> {
       final endpoint = getEndpointByType();
       final param = widget.movieType != MovieType.search
           ? {'page': ++page}
-          : {'page': ++page, 'query': keyword};
+          : {'page': ++page, 'query': widget.keywordSearch};
 
       Response response =
           await NetworkClient.dio.get(endpoint, queryParameters: param);
@@ -110,14 +109,14 @@ class _AllListMovieState extends State<AllListMovie> {
     }
   }
 
-  Future<void> getListMovie(String? keywordValue) async {
+  Future<void> getListMovie() async {
     isLoading = true;
 
     try {
       final endpoint = getEndpointByType();
       final param = widget.movieType != MovieType.search
           ? {'page': 1}
-          : {'page': 1, 'query': keywordValue ?? keyword};
+          : {'page': 1, 'query': widget.keywordSearch};
 
       Response response =
           await NetworkClient.dio.get(endpoint, queryParameters: param);

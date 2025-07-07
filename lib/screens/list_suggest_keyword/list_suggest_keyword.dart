@@ -1,7 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie_world/constants/api_endpoint.dart';
+import 'package:movie_world/constants/movie_type.dart';
+import 'package:movie_world/constants/route_name.dart';
 import 'package:movie_world/core/network_client.dart';
+import 'package:movie_world/screens/all_list_movie/all_list_movie_param.dart';
 import 'package:movie_world/screens/list_suggest_keyword/components/suggest_keyword_item.dart';
 import 'package:movie_world/screens/list_suggest_keyword/models/suggest_keyword_model.dart';
 import 'package:movie_world/widgets/header_search_bar.dart';
@@ -44,8 +48,10 @@ class _ListSuggestKeywordState extends State<ListSuggestKeyword> {
     }
   }
 
-  void onPressKeyword(String value) {
-    //
+  void onPressKeyword(String value, BuildContext context) {
+    final param =
+        AllListMovieParam(movieType: MovieType.search, keywordSearch: value);
+    context.push(RouteName.allListMovie, extra: param);
   }
 
   @override
@@ -60,7 +66,7 @@ class _ListSuggestKeywordState extends State<ListSuggestKeyword> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) => SuggestKeywordItem(
                     onPressKeyword: () {
-                      onPressKeyword(suggestKeywords[index]);
+                      onPressKeyword(suggestKeywords[index], context);
                     },
                     content: suggestKeywords[index]),
                 separatorBuilder: (context, index) => Divider(
