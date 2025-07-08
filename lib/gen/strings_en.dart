@@ -70,4 +70,7 @@ class StringsEn extends Strings {
 
   @override
   String get enter_movie_name => 'Enter movie name';
+
+  @override
+  String get no_result => 'No result found';
 }

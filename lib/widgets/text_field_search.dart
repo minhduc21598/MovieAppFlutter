@@ -6,11 +6,13 @@ import 'package:movie_world/widgets/svg_show.dart';
 
 class TextFieldSearch extends StatefulWidget {
   final Function? onChangeText;
+  final Function? onSubmitted;
   final bool? enabled;
   final String? initialValue;
   const TextFieldSearch({
     super.key,
     this.onChangeText,
+    this.onSubmitted,
     this.enabled,
     this.initialValue,
   });
@@ -21,6 +23,7 @@ class TextFieldSearch extends StatefulWidget {
 
 class _TextFieldSearchState extends State<TextFieldSearch> {
   late final TextEditingController textEditingController;
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
@@ -29,11 +32,15 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
     textEditingController.addListener(() {
       setState(() {});
     });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _focusNode.requestFocus();
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
+    _focusNode.dispose();
     textEditingController.dispose();
   }
 
@@ -50,9 +57,15 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
 
     return TextField(
       controller: textEditingController,
+      focusNode: _focusNode,
       onChanged: (value) {
         if (widget.onChangeText != null) {
           widget.onChangeText!(value);
+        }
+      },
+      onSubmitted: (value) {
+        if (widget.onSubmitted != null && value.isNotEmpty) {
+          widget.onSubmitted!(value);
         }
       },
       enabled: widget.enabled,
@@ -101,7 +114,7 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
           counterText: ''),
       maxLength: 100,
       maxLines: 1,
-      autofocus: true,
+      autofocus: false,
       cursorColor: Colors.black54,
     );
   }

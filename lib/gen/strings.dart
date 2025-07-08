@@ -220,6 +220,12 @@ abstract class Strings {
   /// In en, this message translates to:
   /// **'Enter movie name'**
   String get enter_movie_name;
+
+  /// No description provided for @no_result.
+  ///
+  /// In en, this message translates to:
+  /// **'No result found'**
+  String get no_result;
 }
 
 class _StringsDelegate extends LocalizationsDelegate<Strings> {

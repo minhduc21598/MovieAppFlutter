@@ -19,6 +19,7 @@ class $AssetsImagesGen {
 
   String get defaultAvatar => 'assets/images/default_avatar.png';
   String get imagePlaceholder => 'assets/images/image_placeholder.png';
+  String get noSearchResult => 'assets/images/no_search_result.png';
 }
 
 class Assets {

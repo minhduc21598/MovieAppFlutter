@@ -60,7 +60,12 @@ class _ListSuggestKeywordState extends State<ListSuggestKeyword> {
         body: SafeArea(
             child: Column(
       children: [
-        HeaderSearchBar(onChangeKeyWord: onChangeKeyWord),
+        HeaderSearchBar(
+          onChangeKeyWord: onChangeKeyWord,
+          onSubmitted: (value) {
+            onPressKeyword(value, context);
+          },
+        ),
         Expanded(
             child: ListView.separated(
                 shrinkWrap: true,

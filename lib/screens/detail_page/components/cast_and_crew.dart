@@ -6,14 +6,13 @@ import 'package:movie_world/constants/language_key.dart';
 import 'package:movie_world/constants/route_name.dart';
 import 'package:movie_world/core/network_client.dart';
 import 'package:movie_world/gen/strings.dart';
-import 'package:movie_world/provider/cast_and_crew_provider.dart';
+import 'package:movie_world/screens/all_cast_and_crew/all_cast_and_crew_param.dart';
 import 'package:movie_world/screens/detail_page/components/cast_and_crew_shimmer.dart';
 import 'package:movie_world/screens/detail_page/models/cast_model.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
 import 'package:movie_world/widgets/item_cast.dart';
 import 'package:movie_world/widgets/shimmer_loading/shimmer.dart';
 import 'package:movie_world/widgets/title_category/title_category.dart';
-import 'package:provider/provider.dart';
 
 class CastAndCrew extends StatefulWidget {
   final int movieId;
@@ -43,26 +42,23 @@ class _CastAndCrewState extends State<CastAndCrew> {
       setState(() {
         castData = data;
       });
-      saveListCastAndCrew(data);
-
       isLoading = false;
     } catch (e) {
       isLoading = false;
     }
   }
 
-  void saveListCastAndCrew(CastModel data) {
-    if (data.cast != null && data.cast!.isNotEmpty) {
-      context.read<CastAndCrewProvider>().saveListCast(data.cast!);
+  void goToAllCastAndCrew(bool isCast, BuildContext context) {
+    if (isLoading) {
+      return;
     }
 
-    if (data.crew != null && data.crew!.isNotEmpty) {
-      context.read<CastAndCrewProvider>().saveListCrew(data.crew!);
-    }
-  }
-
-  void goToAllCastAndCrew(bool isCast) {
-    context.push('${RouteName.allCastAndCrew}/${isCast.toString()}');
+    final param = AllCastAndCrewParam(
+      isCast: isCast,
+      listCast: castData?.cast,
+      listCrew: castData?.crew,
+    );
+    context.push(RouteName.allCastAndCrew, extra: param);
   }
 
   @override
@@ -76,10 +72,7 @@ class _CastAndCrewState extends State<CastAndCrew> {
           TitleCategory(
             title: strings.cast,
             onSeeMore: () {
-              if (isLoading) {
-                return;
-              }
-              context.push('${RouteName.allCastAndCrew}/${true}');
+              goToAllCastAndCrew(true, context);
             },
           ),
         if (isLoading)
@@ -118,10 +111,7 @@ class _CastAndCrewState extends State<CastAndCrew> {
           TitleCategory(
             title: strings.crew,
             onSeeMore: () {
-              if (isLoading) {
-                return;
-              }
-              context.push('${RouteName.allCastAndCrew}/${false}');
+              goToAllCastAndCrew(false, context);
             },
           ),
         if (isLoading)

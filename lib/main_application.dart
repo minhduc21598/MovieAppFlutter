@@ -5,7 +5,6 @@ import 'package:movie_world/constants/local_storage_key.dart';
 import 'package:movie_world/core/network_client.dart';
 import 'package:movie_world/gen/strings.dart';
 import 'package:movie_world/main_router.dart';
-import 'package:movie_world/provider/cast_and_crew_provider.dart';
 import 'package:movie_world/provider/language_provider.dart';
 import 'package:movie_world/utilities/local_storage_utilities.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
@@ -51,9 +50,6 @@ class _MainApplicationState extends State<MainApplication> {
                 .saveLanguage(languageFromLocal ?? LanguageKey.english);
             return languageProvider;
           },
-        ),
-        Provider(
-          create: (_) => CastAndCrewProvider(),
         ),
       ],
       child: MaterialApp.router(

@@ -70,4 +70,7 @@ class StringsVi extends Strings {
 
   @override
   String get enter_movie_name => 'Nhập tên phim';
+
+  @override
+  String get no_result => 'Không tìm thấy kết quả nào';
 }

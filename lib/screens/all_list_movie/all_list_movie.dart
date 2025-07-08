@@ -12,6 +12,7 @@ import 'package:movie_world/screens/home_page/models/movie_model.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
 import 'package:movie_world/widgets/header_search_bar.dart';
 import 'package:movie_world/widgets/horizontal_movie_list/components/movie_item.dart';
+import 'package:movie_world/widgets/image_show.dart';
 import 'package:movie_world/widgets/loading_footer.dart';
 import 'package:movie_world/widgets/screen_common_appbar.dart';
 import 'package:movie_world/widgets/scroll_to_top_button.dart';
@@ -165,9 +166,14 @@ class _AllListMovieState extends State<AllListMovie> {
     }
   }
 
+  void backToSuggestKeyword(BuildContext context) {
+    context.pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     final title = getTitleByType();
+    final Strings strings = Strings.of(context)!;
     final itemSize =
         (SizeConfig.screenWidth - SizeConfig.getScaleWidth(44)) / 2;
 
@@ -186,59 +192,75 @@ class _AllListMovieState extends State<AllListMovie> {
               )
             ]
           : null,
-      child: isLoading
-          ? Column(
-              children: [
-                if (widget.movieType == MovieType.search)
-                  HeaderSearchBar(
-                    valueSearchbar: widget.keywordSearch,
-                  ),
-                Expanded(
-                    child: Shimmer(
+      child: Column(
+        children: [
+          if (widget.movieType == MovieType.search)
+            HeaderSearchBar(
+              valueSearchbar: widget.keywordSearch,
+              onPress: () {
+                backToSuggestKeyword(context);
+              },
+            ),
+          isLoading
+              ? Expanded(
+                  child: Shimmer(
                   child: AllListShimmer(isLoading: isLoading),
                 ))
-              ],
-            )
-          : Column(
-              children: [
-                if (widget.movieType == MovieType.search)
-                  HeaderSearchBar(
-                    valueSearchbar: widget.keywordSearch,
-                  ),
-                Expanded(
-                    child: RefreshIndicator(
-                        onRefresh: onRefresh,
-                        child: GridView.builder(
-                          controller: scrollController,
-                          padding: EdgeInsets.only(
-                              left: SizeConfig.getScaleWidth(16),
-                              right: SizeConfig.getScaleWidth(16),
-                              top: SizeConfig.getScaleWidth(12)),
-                          itemCount: movies.length,
-                          itemBuilder: (context, index) {
-                            final movie = movies[index];
+              : movies.isNotEmpty
+                  ? Expanded(
+                      child: RefreshIndicator(
+                          onRefresh: onRefresh,
+                          child: GridView.builder(
+                            controller: scrollController,
+                            padding: EdgeInsets.only(
+                                left: SizeConfig.getScaleWidth(16),
+                                right: SizeConfig.getScaleWidth(16),
+                                top: SizeConfig.getScaleWidth(12)),
+                            itemCount: movies.length,
+                            itemBuilder: (context, index) {
+                              final movie = movies[index];
 
-                            return MovieItem(
-                              posterPath: movie.posterPath,
-                              title: movie.title,
-                              voteAverage: movie.voteAverage,
-                              movieId: movie.id,
-                              imageWidth: itemSize,
-                              imageHeight: SizeConfig.getScaleHeight(240),
-                            );
-                          },
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, // 3 columns
-                            crossAxisSpacing: SizeConfig.getScaleWidth(
-                                12), // spacing between columns
-                            mainAxisSpacing: 0, // spacing between rows
-                            childAspectRatio: 1 / 2.1, // width / height
+                              return MovieItem(
+                                posterPath: movie.posterPath,
+                                title: movie.title,
+                                voteAverage: movie.voteAverage,
+                                movieId: movie.id,
+                                imageWidth: itemSize,
+                                imageHeight: SizeConfig.getScaleHeight(240),
+                              );
+                            },
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2, // 3 columns
+                              crossAxisSpacing: SizeConfig.getScaleWidth(
+                                  12), // spacing between columns
+                              mainAxisSpacing: 0, // spacing between rows
+                              childAspectRatio: 1 / 2.1, // width / height
+                            ),
+                          )))
+                  : Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        spacing: SizeConfig.getScaleHeight(16),
+                        children: [
+                          ImageShow(
+                              uri: Assets.images.noSearchResult,
+                              isLocalImage: true,
+                              height: SizeConfig.getScaleWidth(150),
+                              width: SizeConfig.getScaleWidth(150)),
+                          Text(
+                            strings.no_result,
+                            style: TextStyle(
+                                fontSize: SizeConfig.getScaleFontSize(16),
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black54),
                           ),
-                        ))),
-                if (isLoadingMore) LoadingFooter()
-              ],
-            ),
+                        ],
+                      ),
+                    ),
+          if (isLoadingMore) LoadingFooter()
+        ],
+      ),
     );
   }
 }

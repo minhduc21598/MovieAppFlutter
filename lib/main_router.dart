@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:movie_world/constants/route_name.dart';
 import 'package:movie_world/screens/all_cast_and_crew/all_cast_and_crew.dart';
+import 'package:movie_world/screens/all_cast_and_crew/all_cast_and_crew_param.dart';
 import 'package:movie_world/screens/all_list_movie/all_list_movie.dart';
 import 'package:movie_world/screens/all_list_movie/all_list_movie_param.dart';
 import 'package:movie_world/screens/detail_page/detail_page_screen.dart';
@@ -22,10 +23,16 @@ class MainRouter {
               movieId: int.parse(state.pathParameters['movieId']!)),
         ),
         GoRoute(
-          path: '${RouteName.allCastAndCrew}/:isCast',
-          builder: (context, state) => AllCastAndCrew(
-            isCast: bool.parse(state.pathParameters['isCast']!),
-          ),
+          path: RouteName.allCastAndCrew,
+          builder: (context, state) {
+            final castAndCrewParam = state.extra as AllCastAndCrewParam;
+
+            return AllCastAndCrew(
+              isCast: castAndCrewParam.isCast,
+              listCast: castAndCrewParam.listCast,
+              listCrew: castAndCrewParam.listCrew,
+            );
+          },
         ),
         GoRoute(
           path: RouteName.allListMovie,
