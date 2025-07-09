@@ -54,32 +54,41 @@ class _ListSuggestKeywordState extends State<ListSuggestKeyword> {
     context.push(RouteName.allListMovie, extra: param);
   }
 
+  void hideKeyboard(BuildContext context) {
+    FocusScope.of(context).unfocus();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-            child: Column(
-      children: [
-        HeaderSearchBar(
-          onChangeKeyWord: onChangeKeyWord,
-          onSubmitted: (value) {
-            onPressKeyword(value, context);
-          },
-        ),
-        Expanded(
-            child: ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (context, index) => SuggestKeywordItem(
-                    onPressKeyword: () {
-                      onPressKeyword(suggestKeywords[index], context);
-                    },
-                    content: suggestKeywords[index]),
-                separatorBuilder: (context, index) => Divider(
-                      thickness: 0.5,
-                      color: Colors.grey[300],
-                    ),
-                itemCount: suggestKeywords.length)),
-      ],
+            child: GestureDetector(
+      onTap: () {
+        hideKeyboard(context);
+      },
+      child: Column(
+        children: [
+          HeaderSearchBar(
+            onChangeKeyWord: onChangeKeyWord,
+            onSubmitted: (value) {
+              onPressKeyword(value, context);
+            },
+          ),
+          Expanded(
+              child: ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => SuggestKeywordItem(
+                      onPressKeyword: () {
+                        onPressKeyword(suggestKeywords[index], context);
+                      },
+                      content: suggestKeywords[index]),
+                  separatorBuilder: (context, index) => Divider(
+                        thickness: 0.5,
+                        color: Colors.grey[300],
+                      ),
+                  itemCount: suggestKeywords.length)),
+        ],
+      ),
     )));
   }
 }

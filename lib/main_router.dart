@@ -9,47 +9,57 @@ import 'package:movie_world/screens/home_page/home_page_screen.dart';
 import 'package:movie_world/screens/list_suggest_keyword/list_suggest_keyword.dart';
 
 class MainRouter {
-  static GoRouter build() {
-    return GoRouter(
-      initialLocation: RouteName.homePage,
-      routes: [
-        GoRoute(
-          path: RouteName.homePage,
-          builder: (context, state) => const HomePageScreen(),
-        ),
-        GoRoute(
-          path: '${RouteName.detailPage}/:movieId',
-          builder: (context, state) => DetailPageScreen(
-              movieId: int.parse(state.pathParameters['movieId']!)),
-        ),
-        GoRoute(
-          path: RouteName.allCastAndCrew,
-          builder: (context, state) {
-            final castAndCrewParam = state.extra as AllCastAndCrewParam;
+  static final MainRouter _singleton = MainRouter._internal();
 
-            return AllCastAndCrew(
-              isCast: castAndCrewParam.isCast,
-              listCast: castAndCrewParam.listCast,
-              listCrew: castAndCrewParam.listCrew,
-            );
-          },
-        ),
-        GoRoute(
-          path: RouteName.allListMovie,
-          builder: (context, state) {
-            final movieParam = state.extra as AllListMovieParam;
+  GoRouter? router;
 
-            return AllListMovie(
-              movieType: movieParam.movieType,
-              keywordSearch: movieParam.keywordSearch,
-            );
-          },
-        ),
-        GoRoute(
-          path: RouteName.listSuggestKeyword,
-          builder: (context, state) => const ListSuggestKeyword(),
-        ),
-      ],
-    );
+  factory MainRouter() {
+    return _singleton;
+  }
+
+  MainRouter._internal() {
+    router =
+        GoRouter(routes: _getAllRoutes(), initialLocation: RouteName.homePage);
+  }
+
+  List<RouteBase> _getAllRoutes() {
+    return [
+      GoRoute(
+        path: RouteName.homePage,
+        builder: (context, state) => const HomePageScreen(),
+      ),
+      GoRoute(
+        path: '${RouteName.detailPage}/:movieId',
+        builder: (context, state) => DetailPageScreen(
+            movieId: int.parse(state.pathParameters['movieId']!)),
+      ),
+      GoRoute(
+        path: RouteName.allCastAndCrew,
+        builder: (context, state) {
+          final castAndCrewParam = state.extra as AllCastAndCrewParam;
+
+          return AllCastAndCrew(
+            isCast: castAndCrewParam.isCast,
+            listCast: castAndCrewParam.listCast,
+            listCrew: castAndCrewParam.listCrew,
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.allListMovie,
+        builder: (context, state) {
+          final movieParam = state.extra as AllListMovieParam;
+
+          return AllListMovie(
+            movieType: movieParam.movieType,
+            keywordSearch: movieParam.keywordSearch,
+          );
+        },
+      ),
+      GoRoute(
+        path: RouteName.listSuggestKeyword,
+        builder: (context, state) => const ListSuggestKeyword(),
+      ),
+    ];
   }
 }

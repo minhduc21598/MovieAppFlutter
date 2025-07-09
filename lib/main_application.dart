@@ -40,6 +40,7 @@ class _MainApplicationState extends State<MainApplication> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     final languageFromLocal = LocalStorage.getString(LocalStorageKey.language);
+    final routerConfig = MainRouter();
 
     return MultiProvider(
       providers: [
@@ -56,7 +57,7 @@ class _MainApplicationState extends State<MainApplication> {
         locale: Locale(languageFromLocal ?? LanguageKey.english),
         localizationsDelegates: Strings.localizationsDelegates,
         supportedLocales: Strings.supportedLocales,
-        routerConfig: MainRouter.build(),
+        routerConfig: routerConfig.router,
       ),
     );
   }

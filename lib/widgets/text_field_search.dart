@@ -9,12 +9,14 @@ class TextFieldSearch extends StatefulWidget {
   final Function? onSubmitted;
   final bool? enabled;
   final String? initialValue;
+  final bool? autofocus;
   const TextFieldSearch({
     super.key,
     this.onChangeText,
     this.onSubmitted,
     this.enabled,
     this.initialValue,
+    this.autofocus,
   });
 
   @override
@@ -23,7 +25,6 @@ class TextFieldSearch extends StatefulWidget {
 
 class _TextFieldSearchState extends State<TextFieldSearch> {
   late final TextEditingController textEditingController;
-  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
@@ -32,15 +33,11 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
     textEditingController.addListener(() {
       setState(() {});
     });
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _focusNode.requestFocus();
-    });
   }
 
   @override
   void dispose() {
     super.dispose();
-    _focusNode.dispose();
     textEditingController.dispose();
   }
 
@@ -51,23 +48,29 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
     }
   }
 
+  void handleChange(value) {
+    if (widget.onChangeText != null) {
+      widget.onChangeText!(value);
+    }
+  }
+
+  void handleSubmitted(value) {
+    if (widget.onSubmitted != null && value.isNotEmpty) {
+      FocusScope.of(context).unfocus();
+      Future.delayed(const Duration(milliseconds: 300), () {
+        widget.onSubmitted!(value);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final Strings strings = Strings.of(context)!;
 
     return TextField(
       controller: textEditingController,
-      focusNode: _focusNode,
-      onChanged: (value) {
-        if (widget.onChangeText != null) {
-          widget.onChangeText!(value);
-        }
-      },
-      onSubmitted: (value) {
-        if (widget.onSubmitted != null && value.isNotEmpty) {
-          widget.onSubmitted!(value);
-        }
-      },
+      onChanged: handleChange,
+      onSubmitted: handleSubmitted,
       enabled: widget.enabled,
       style: TextStyle(
           fontSize: SizeConfig.getScaleFontSize(14), color: Colors.black),
@@ -79,8 +82,7 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
             ),
           ),
           suffixIcon: textEditingController.text.isNotEmpty &&
-                  (widget.enabled == null ||
-                      (widget.enabled != null && widget.enabled!))
+                  (widget.enabled == null || (widget.enabled == true))
               ? Padding(
                   padding: EdgeInsets.all(SizeConfig.getScaleWidth(16)),
                   child: GestureDetector(
@@ -114,7 +116,9 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
           counterText: ''),
       maxLength: 100,
       maxLines: 1,
-      autofocus: false,
+      autofocus: (widget.enabled == true || widget.enabled == null)
+          ? (widget.autofocus ?? false)
+          : false,
       cursorColor: Colors.black54,
     );
   }
