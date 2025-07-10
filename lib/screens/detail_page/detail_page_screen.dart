@@ -76,6 +76,11 @@ class _DetailPageScreenState extends State<DetailPageScreen> {
   @override
   Widget build(BuildContext context) {
     final Strings strings = Strings.of(context)!;
+    final languages = detailData?.spokenLanguages
+            ?.map((item) => item.name)
+            .toList()
+            .join(", ") ??
+        '';
 
     return isLoading
         ? Shimmer(
@@ -168,17 +173,15 @@ class _DetailPageScreenState extends State<DetailPageScreen> {
                                 title: strings.length,
                                 content: FunctionUtilities.formatMovieRunTime(
                                     detailData?.runtime ?? 0)),
-                            AddtionalInfo(
-                                title: strings.language,
-                                content: detailData?.spokenLanguages
-                                        ?.map((item) => item.name)
-                                        .toList()
-                                        .join(", ") ??
-                                    ''),
-                            AddtionalInfo(
-                                title: strings.release_date,
-                                content: FunctionUtilities.formatReleaseDate(
-                                    detailData?.releaseDate ?? ''))
+                            if (languages.isNotEmpty)
+                              AddtionalInfo(
+                                  title: strings.language, content: languages),
+                            if (detailData!.releaseDate!.isNotEmpty &&
+                                detailData?.releaseDate != null)
+                              AddtionalInfo(
+                                  title: strings.release_date,
+                                  content: FunctionUtilities.formatReleaseDate(
+                                      detailData?.releaseDate ?? ''))
                           ],
                         ),
                         if (detailData?.overview != null)

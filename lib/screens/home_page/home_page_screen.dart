@@ -23,6 +23,7 @@ class HomePageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     final Strings strings = Strings.of(context)!;
 
     return ScreenCommonAppBar(

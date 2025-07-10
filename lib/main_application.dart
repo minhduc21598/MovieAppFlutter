@@ -7,7 +7,6 @@ import 'package:movie_world/gen/strings.dart';
 import 'package:movie_world/main_router.dart';
 import 'package:movie_world/provider/language_provider.dart';
 import 'package:movie_world/utilities/local_storage_utilities.dart';
-import 'package:movie_world/utilities/size_config_utitilites.dart';
 import 'package:provider/provider.dart';
 
 class MainApplication extends StatefulWidget {
@@ -38,7 +37,6 @@ class _MainApplicationState extends State<MainApplication> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     final languageFromLocal = LocalStorage.getString(LocalStorageKey.language);
     final routerConfig = MainRouter();
 

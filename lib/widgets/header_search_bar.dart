@@ -8,12 +8,14 @@ class HeaderSearchBar extends StatelessWidget {
   final Function? onSubmitted;
   final String? valueSearchbar;
   final Function? onPress;
+  final bool? autofocus;
   const HeaderSearchBar(
       {super.key,
       this.onChangeKeyWord,
       this.onSubmitted,
       this.valueSearchbar,
-      this.onPress});
+      this.onPress,
+      this.autofocus});
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,7 @@ class HeaderSearchBar extends StatelessWidget {
                       enabled: true,
                       initialValue: valueSearchbar,
                       onSubmitted: onSubmitted,
+                      autofocus: autofocus,
                     ))
         ],
       ),

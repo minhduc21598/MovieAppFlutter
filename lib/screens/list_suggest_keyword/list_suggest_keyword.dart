@@ -48,10 +48,19 @@ class _ListSuggestKeywordState extends State<ListSuggestKeyword> {
     }
   }
 
-  void onPressKeyword(String value, BuildContext context) {
+  void onSubmitted(String value, BuildContext context) {
     final param =
         AllListMovieParam(movieType: MovieType.search, keywordSearch: value);
     context.push(RouteName.allListMovie, extra: param);
+  }
+
+  void onPressKeyword(String value, BuildContext context) {
+    hideKeyboard(context);
+    Future.delayed(const Duration(microseconds: 300), () {
+      if (context.mounted) {
+        onSubmitted(value, context);
+      }
+    });
   }
 
   void hideKeyboard(BuildContext context) {
@@ -71,8 +80,9 @@ class _ListSuggestKeywordState extends State<ListSuggestKeyword> {
           HeaderSearchBar(
             onChangeKeyWord: onChangeKeyWord,
             onSubmitted: (value) {
-              onPressKeyword(value, context);
+              onSubmitted(value, context);
             },
+            autofocus: true,
           ),
           Expanded(
               child: ListView.separated(
