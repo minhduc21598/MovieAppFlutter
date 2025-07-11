@@ -1,8 +1,9 @@
+import 'package:flutter/widgets.dart';
 import 'package:movie_world/constants/language_key.dart';
 import 'package:movie_world/constants/local_storage_key.dart';
 import 'package:movie_world/utilities/local_storage_utilities.dart';
 
-class LanguageProvider {
+class LanguageProvider with ChangeNotifier {
   String _language = LanguageKey.english;
 
   static final LanguageProvider _singleton = LanguageProvider._internal();
@@ -22,5 +23,6 @@ class LanguageProvider {
   void saveLanguage(String lang) {
     _language = lang;
     _saveToLocal(lang);
+    notifyListeners();
   }
 }

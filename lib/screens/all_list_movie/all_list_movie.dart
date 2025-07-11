@@ -7,6 +7,7 @@ import 'package:movie_world/constants/route_name.dart';
 import 'package:movie_world/core/network_client.dart';
 import 'package:movie_world/gen/assets.gen.dart';
 import 'package:movie_world/gen/strings.dart';
+import 'package:movie_world/provider/language_provider.dart';
 import 'package:movie_world/screens/all_list_movie/components/all_list_shimmer_screen/all_list_shimmer.dart';
 import 'package:movie_world/screens/home_page/models/movie_model.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
@@ -18,6 +19,7 @@ import 'package:movie_world/widgets/screen_common_appbar.dart';
 import 'package:movie_world/widgets/scroll_to_top_button.dart';
 import 'package:movie_world/widgets/shimmer_loading/shimmer.dart';
 import 'package:movie_world/widgets/svg_show.dart';
+import 'package:provider/provider.dart';
 
 class AllListMovie extends StatefulWidget {
   final MovieType movieType;
@@ -86,9 +88,14 @@ class _AllListMovieState extends State<AllListMovie> {
 
     try {
       final endpoint = getEndpointByType();
+      final language = context.read<LanguageProvider>().language;
       final param = widget.movieType != MovieType.search
-          ? {'page': ++page}
-          : {'page': ++page, 'query': widget.keywordSearch};
+          ? {'page': ++page, 'language': language}
+          : {
+              'page': ++page,
+              'query': widget.keywordSearch,
+              'language': language
+            };
 
       Response response =
           await NetworkClient.dio.get(endpoint, queryParameters: param);
@@ -115,9 +122,10 @@ class _AllListMovieState extends State<AllListMovie> {
 
     try {
       final endpoint = getEndpointByType();
+      final language = context.read<LanguageProvider>().language;
       final param = widget.movieType != MovieType.search
-          ? {'page': 1}
-          : {'page': 1, 'query': widget.keywordSearch};
+          ? {'page': 1, 'language': language}
+          : {'page': 1, 'query': widget.keywordSearch, 'language': language};
 
       Response response =
           await NetworkClient.dio.get(endpoint, queryParameters: param);

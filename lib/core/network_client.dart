@@ -4,7 +4,7 @@ import 'package:movie_world/constants/api_endpoint.dart';
 class NetworkClient {
   static late Dio dio;
 
-  static void createClient(String language) {
+  static void createClient() {
     dio = Dio(BaseOptions(
         baseUrl: ApiEndpoint.baseUrl,
         connectTimeout: Duration(seconds: 30),
@@ -15,7 +15,6 @@ class NetworkClient {
         },
         queryParameters: {
           'api_key': ApiEndpoint.apiKey,
-          'language': language
         }));
 
     dio.interceptors.add(InterceptorsWrapper(

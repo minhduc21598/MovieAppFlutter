@@ -75,6 +75,8 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
       style: TextStyle(
           fontSize: SizeConfig.getScaleFontSize(14), color: Colors.black),
       decoration: InputDecoration(
+          contentPadding:
+              EdgeInsets.symmetric(vertical: SizeConfig.getScaleHeight(12)),
           prefixIcon: Padding(
             padding: EdgeInsets.all(SizeConfig.getScaleWidth(10)),
             child: SvgShow(
@@ -84,12 +86,12 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
           suffixIcon: textEditingController.text.isNotEmpty &&
                   (widget.enabled == null || (widget.enabled == true))
               ? Padding(
-                  padding: EdgeInsets.all(SizeConfig.getScaleWidth(16)),
+                  padding: EdgeInsets.all(SizeConfig.getScaleWidth(14)),
                   child: GestureDetector(
                     onTap: clearTextValue,
                     child: SvgShow(
                       uri: Assets.icons.icClose,
-                      iconSize: SizeConfig.getScaleWidth(18),
+                      iconSize: SizeConfig.getScaleWidth(16),
                       color: Colors.black38,
                     ),
                   ),

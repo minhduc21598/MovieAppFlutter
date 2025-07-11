@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_world/constants/language_key.dart';
 import 'package:movie_world/core/network_client.dart';
 import 'package:movie_world/screens/home_page/models/movie_model.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
@@ -12,8 +13,13 @@ class HorizontalMovieList extends StatefulWidget {
   final String endpoint;
   final String title;
   final Function? onSeeMore;
+  final String? language;
   const HorizontalMovieList(
-      {super.key, required this.endpoint, required this.title, this.onSeeMore});
+      {super.key,
+      required this.endpoint,
+      required this.title,
+      this.onSeeMore,
+      this.language});
 
   @override
   State<HorizontalMovieList> createState() => _HorizontalMovieListState();
@@ -29,18 +35,36 @@ class _HorizontalMovieListState extends State<HorizontalMovieList> {
     getListMovie();
   }
 
+  @override
+  void didUpdateWidget(covariant HorizontalMovieList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.language != widget.language) {
+      getListMovie();
+    }
+  }
+
   Future<void> getListMovie() async {
-    isLoading = true;
+    setState(() {
+      isLoading = true;
+      if (movies.isNotEmpty) {
+        movies = [];
+      }
+    });
     try {
-      Response response = await NetworkClient.dio.get(widget.endpoint);
+      Response response = await NetworkClient.dio.get(widget.endpoint,
+          queryParameters: {
+            'language': widget.language ?? LanguageKey.english
+          });
       setState(() {
         movies = (response.data['results'] as List)
             .map((item) => MovieModel.fromJson(item as Map<String, dynamic>))
             .toList();
+        isLoading = false;
       });
-      isLoading = false;
     } catch (error) {
-      isLoading = false;
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 

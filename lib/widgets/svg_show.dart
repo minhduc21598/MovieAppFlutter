@@ -23,6 +23,7 @@ class SvgShow extends StatelessWidget {
       colorFilter: (noColorFilter == true)
           ? null
           : ColorFilter.mode(color ?? Color(0xFF333333), BlendMode.srcIn),
+      fit: BoxFit.contain,
     );
   }
 }

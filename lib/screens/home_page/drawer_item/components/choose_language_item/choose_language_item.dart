@@ -4,7 +4,6 @@ import 'package:movie_world/gen/assets.gen.dart';
 import 'package:movie_world/gen/strings.dart';
 import 'package:movie_world/provider/language_provider.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
-import 'package:movie_world/widgets/restart_app_widget.dart';
 import 'package:movie_world/widgets/svg_show.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +49,6 @@ class ChooseLanguageItem extends StatelessWidget {
           onTap: () {
             context.read<LanguageProvider>().saveLanguage(LanguageKey.english);
             Navigator.pop(context);
-            RestartAppWidget.restartApp(context);
           },
         ),
         ListTile(
@@ -77,7 +75,6 @@ class ChooseLanguageItem extends StatelessWidget {
                 .read<LanguageProvider>()
                 .saveLanguage(LanguageKey.vietnamese);
             Navigator.pop(context);
-            RestartAppWidget.restartApp(context);
           },
         )
       ],

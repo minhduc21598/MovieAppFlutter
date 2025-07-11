@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_world/constants/api_endpoint.dart';
+import 'package:movie_world/constants/language_key.dart';
 import 'package:movie_world/constants/movie_type.dart';
 import 'package:movie_world/constants/route_name.dart';
 import 'package:movie_world/core/network_client.dart';
@@ -19,12 +20,14 @@ class VerticalMovieList extends StatefulWidget {
   final String apiEndpoint;
   final int? limitItemShow;
   final MovieType? movieType;
+  final String? language;
   const VerticalMovieList(
       {super.key,
       required this.title,
       required this.apiEndpoint,
       this.limitItemShow = 5,
-      this.movieType});
+      this.movieType,
+      this.language});
 
   @override
   State<VerticalMovieList> createState() => _VerticalMovieListState();
@@ -47,34 +50,59 @@ class _VerticalMovieListState extends State<VerticalMovieList> {
     _fetchData();
   }
 
+  @override
+  void didUpdateWidget(covariant VerticalMovieList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.language != widget.language) {
+      _fetchData();
+    }
+  }
+
   Future<void> getListGenres() async {
-    isLoadingGenres = true;
+    setState(() {
+      isLoadingGenres = true;
+    });
     try {
-      Response response = await NetworkClient.dio.get(ApiEndpoint.genres);
+      Response response = await NetworkClient.dio.get(ApiEndpoint.genres,
+          queryParameters: {
+            'language': widget.language ?? LanguageKey.english
+          });
       setState(() {
         genresData = (response.data['genres'] as List)
             .map((item) => GenreModel.fromJson(item as Map<String, dynamic>))
             .toList();
+        isLoadingGenres = false;
       });
-      isLoadingGenres = false;
     } catch (error) {
-      isLoadingGenres = false;
+      setState(() {
+        isLoadingGenres = false;
+      });
     }
   }
 
   Future<void> getListMovies() async {
-    isLoadingMovies = true;
+    setState(() {
+      isLoadingMovies = true;
+      if (movies.isNotEmpty) {
+        movies = [];
+      }
+    });
     try {
-      Response response = await NetworkClient.dio.get(widget.apiEndpoint);
+      Response response = await NetworkClient.dio.get(widget.apiEndpoint,
+          queryParameters: {
+            'language': widget.language ?? LanguageKey.english
+          });
       setState(() {
         movies = (response.data['results'] as List)
             .map((item) => MovieModel.fromJson(item as Map<String, dynamic>))
             .toList()
             .sublist(0, widget.limitItemShow);
+        isLoadingMovies = false;
       });
-      isLoadingMovies = false;
     } catch (error) {
-      isLoadingMovies = false;
+      setState(() {
+        isLoadingMovies = false;
+      });
     }
   }
 
@@ -90,43 +118,47 @@ class _VerticalMovieListState extends State<VerticalMovieList> {
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = isLoadingGenres || isLoadingMovies;
+
     return Column(
       spacing: SizeConfig.getScaleHeight(16),
       children: [
-        TitleCategory(
-          title: widget.title,
-          onSeeMore: () {
-            goToAllMovieList(context);
-          },
-        ),
-        isLoadingMovies || isLoadingGenres
-            ? Shimmer(
-                child: VerticalListShimmer(
-                    isLoading: isLoadingMovies || isLoadingGenres))
-            : ListView.separated(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  final movie = movies[index];
-                  final genres = genresData
-                      .where((genre) => movie.genreIds!.contains(genre.id))
-                      .map((genre) => genre.name!)
-                      .toList();
+        if (movies.isNotEmpty)
+          TitleCategory(
+            title: widget.title,
+            onSeeMore: () {
+              goToAllMovieList(context);
+            },
+          ),
+        if (movies.isEmpty && isLoading)
+          Shimmer(
+              child: VerticalListShimmer(
+                  isLoading: isLoadingMovies || isLoadingGenres)),
+        if (movies.isNotEmpty && !isLoading)
+          ListView.separated(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                final movie = movies[index];
+                final genres = genresData
+                    .where((genre) => movie.genreIds!.contains(genre.id))
+                    .map((genre) => genre.name!)
+                    .toList();
 
-                  return MovieItem(
-                    posterPath: movie.posterPath,
-                    title: movie.title,
-                    voteAverage: movie.voteAverage,
-                    genres: genres.length < 4 ? genres : genres.sublist(0, 3),
-                    movieId: movie.id,
-                  );
-                },
-                separatorBuilder: (context, index) => SizedBox(
-                      height: SizeConfig.getScaleHeight(16),
-                    ),
-                itemCount: movies.length < (widget.limitItemShow ?? 0)
-                    ? movies.length
-                    : movies.sublist(0, widget.limitItemShow).length),
+                return MovieItem(
+                  posterPath: movie.posterPath,
+                  title: movie.title,
+                  voteAverage: movie.voteAverage,
+                  genres: genres.length < 4 ? genres : genres.sublist(0, 3),
+                  movieId: movie.id,
+                );
+              },
+              separatorBuilder: (context, index) => SizedBox(
+                    height: SizeConfig.getScaleHeight(16),
+                  ),
+              itemCount: movies.length < (widget.limitItemShow ?? 0)
+                  ? movies.length
+                  : movies.sublist(0, widget.limitItemShow).length),
       ],
     );
   }

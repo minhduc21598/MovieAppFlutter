@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_world/constants/api_endpoint.dart';
 import 'package:movie_world/core/network_client.dart';
 import 'package:movie_world/gen/strings.dart';
+import 'package:movie_world/provider/language_provider.dart';
 import 'package:movie_world/screens/detail_page/components/addtional_info.dart';
 import 'package:movie_world/screens/detail_page/components/cast_and_crew.dart';
 import 'package:movie_world/screens/detail_page/components/detail_shimmer_screen.dart';
@@ -16,6 +17,7 @@ import 'package:movie_world/widgets/image_show.dart';
 import 'package:movie_world/widgets/list_genre_label/list_genre_label.dart';
 import 'package:movie_world/widgets/rating_point.dart';
 import 'package:movie_world/widgets/shimmer_loading/shimmer.dart';
+import 'package:provider/provider.dart';
 
 class DetailPageScreen extends StatefulWidget {
   final int movieId;
@@ -60,9 +62,12 @@ class _DetailPageScreenState extends State<DetailPageScreen> {
 
   Future<void> getDetailMovie() async {
     isLoading = true;
+    final language = context.read<LanguageProvider>().language;
+
     try {
-      Response response =
-          await NetworkClient.dio.get('${ApiEndpoint.movie}/${widget.movieId}');
+      Response response = await NetworkClient.dio.get(
+          '${ApiEndpoint.movie}/${widget.movieId}',
+          queryParameters: {'language': language});
       setState(() {
         detailData = DetailMovieModel.fromJson(response.data);
       });
@@ -81,6 +86,7 @@ class _DetailPageScreenState extends State<DetailPageScreen> {
             .toList()
             .join(", ") ??
         '';
+    final language = context.read<LanguageProvider>().language;
 
     return isLoading
         ? Shimmer(
@@ -216,11 +222,13 @@ class _DetailPageScreenState extends State<DetailPageScreen> {
                           endpoint:
                               '${ApiEndpoint.movie}/${widget.movieId}${ApiEndpoint.recommendations}',
                           title: strings.recommendations,
+                          language: language,
                         ),
                         HorizontalMovieList(
                           endpoint:
                               '${ApiEndpoint.movie}/${widget.movieId}${ApiEndpoint.similar}',
                           title: strings.similar,
+                          language: language,
                         ),
                       ],
                     ),
