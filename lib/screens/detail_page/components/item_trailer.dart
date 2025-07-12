@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_world/constants/api_endpoint.dart';
 import 'package:movie_world/gen/assets.gen.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
+import 'package:movie_world/utilities/theme_utilities.dart';
 import 'package:movie_world/widgets/image_show.dart';
 import 'package:movie_world/widgets/svg_show.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -62,7 +63,7 @@ class ItemTrailer extends StatelessWidget {
               videoName,
               style: TextStyle(
                   fontSize: SizeConfig.getScaleFontSize(14),
-                  color: Color(0xFF000000)),
+                  color: ThemeUtilities.primaryTextColor),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),

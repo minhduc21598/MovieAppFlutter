@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_world/constants/route_name.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
+import 'package:movie_world/utilities/theme_utilities.dart';
 import 'package:movie_world/widgets/image_show.dart';
 import 'package:movie_world/widgets/rating_point.dart';
 
@@ -47,7 +48,7 @@ class MovieItem extends StatelessWidget {
               style: TextStyle(
                   fontSize: SizeConfig.getScaleFontSize(14),
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF000000)),
+                  color: ThemeUtilities.primaryTextColor),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),

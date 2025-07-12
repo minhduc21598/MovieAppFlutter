@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_world/gen/assets.gen.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
+import 'package:movie_world/utilities/theme_utilities.dart';
 import 'package:movie_world/widgets/svg_show.dart';
 
 class RatingPoint extends StatelessWidget {
@@ -24,7 +25,7 @@ class RatingPoint extends StatelessWidget {
           style: TextStyle(
               fontSize: SizeConfig.getScaleFontSize(14),
               fontWeight: FontWeight.normal,
-              color: Color(0xFF9C9C9C)),
+              color: ThemeUtilities.secondaryTextColor),
         ),
       ],
     );

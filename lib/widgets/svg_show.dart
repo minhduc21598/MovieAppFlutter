@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
+import 'package:movie_world/utilities/theme_utilities.dart';
 
 class SvgShow extends StatelessWidget {
   final String uri;
@@ -22,7 +23,8 @@ class SvgShow extends StatelessWidget {
       width: iconSize ?? SizeConfig.getScaleWidth(24),
       colorFilter: (noColorFilter == true)
           ? null
-          : ColorFilter.mode(color ?? Color(0xFF333333), BlendMode.srcIn),
+          : ColorFilter.mode(
+              color ?? ThemeUtilities.iconColor, BlendMode.srcIn),
       fit: BoxFit.contain,
     );
   }

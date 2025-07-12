@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_world/gen/assets.gen.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
+import 'package:movie_world/utilities/theme_utilities.dart';
 import 'package:movie_world/widgets/image_show.dart';
 
 class ItemCast extends StatelessWidget {
@@ -37,7 +38,8 @@ class ItemCast extends StatelessWidget {
           Text(
             name ?? '',
             style: TextStyle(
-                fontSize: nameFontSize ?? SizeConfig.getScaleFontSize(14)),
+                fontSize: nameFontSize ?? SizeConfig.getScaleFontSize(14),
+                color: ThemeUtilities.primaryTextColor),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
@@ -46,7 +48,7 @@ class ItemCast extends StatelessWidget {
             style: TextStyle(
                 fontSize:
                     characterNameFontSize ?? SizeConfig.getScaleFontSize(12),
-                color: Color(0xFF9C9C9C)),
+                color: ThemeUtilities.secondaryTextColor),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_world/gen/assets.gen.dart';
 import 'package:movie_world/gen/strings.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
+import 'package:movie_world/utilities/theme_utilities.dart';
 import 'package:movie_world/widgets/svg_show.dart';
 
 class TextFieldSearch extends StatefulWidget {
@@ -73,7 +74,8 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
       onSubmitted: handleSubmitted,
       enabled: widget.enabled,
       style: TextStyle(
-          fontSize: SizeConfig.getScaleFontSize(14), color: Colors.black),
+          fontSize: SizeConfig.getScaleFontSize(14),
+          color: ThemeUtilities.primaryTextColor),
       decoration: InputDecoration(
           contentPadding:
               EdgeInsets.symmetric(vertical: SizeConfig.getScaleHeight(12)),
@@ -92,14 +94,15 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
                     child: SvgShow(
                       uri: Assets.icons.icClose,
                       iconSize: SizeConfig.getScaleWidth(16),
-                      color: Colors.black38,
+                      color: ThemeUtilities.secondaryTextColor,
                     ),
                   ),
                 )
               : null,
           hintText: strings.enter_movie_name,
           hintStyle: TextStyle(
-              fontSize: SizeConfig.getScaleFontSize(14), color: Colors.black54),
+              fontSize: SizeConfig.getScaleFontSize(14),
+              color: ThemeUtilities.secondaryTextColor),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(
                 SizeConfig.getScaleWidth(24),
@@ -113,7 +116,7 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(SizeConfig.getScaleWidth(24)),
               borderSide: BorderSide.none),
-          fillColor: Colors.black12,
+          fillColor: ThemeUtilities.textFieldBackground,
           filled: true,
           counterText: ''),
       maxLength: 100,
@@ -121,7 +124,7 @@ class _TextFieldSearchState extends State<TextFieldSearch> {
       autofocus: (widget.enabled == true || widget.enabled == null)
           ? (widget.autofocus ?? false)
           : false,
-      cursorColor: Colors.black54,
+      cursorColor: ThemeUtilities.secondaryTextColor,
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:movie_world/constants/color_value.dart';
 import 'package:movie_world/gen/strings.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
+import 'package:movie_world/utilities/theme_utilities.dart';
 
 class SeeMoreButton extends StatelessWidget {
   final Function onSeeMore;
@@ -17,7 +19,8 @@ class SeeMoreButton extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(
-                width: SizeConfig.getScaleWidth(1), color: Color(0xFFE5E4EA)),
+                width: SizeConfig.getScaleWidth(0.8),
+                color: ColorValue.borderColor),
             borderRadius: BorderRadius.all(
                 Radius.circular(SizeConfig.getScaleWidth(100)))),
         padding: EdgeInsets.fromLTRB(
@@ -28,7 +31,7 @@ class SeeMoreButton extends StatelessWidget {
         child: Text(
           strings.see_more,
           style: TextStyle(
-              color: Color(0xFFAAA9B1),
+              color: ThemeUtilities.secondaryTextColor,
               fontSize: SizeConfig.getScaleFontSize(10),
               fontWeight: FontWeight.normal),
         ),

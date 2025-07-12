@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_world/gen/strings.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
+import 'package:movie_world/utilities/theme_utilities.dart';
 
 class LoadingFooter extends StatelessWidget {
   const LoadingFooter({super.key});
@@ -24,14 +25,15 @@ class LoadingFooter extends StatelessWidget {
             child: Center(
               child: CircularProgressIndicator(
                 strokeWidth: 1.5,
-                color: Colors.black,
+                color: ThemeUtilities.primaryTextColor,
               ),
             ),
           ),
           Text(
             strings.loading,
             style: TextStyle(
-                fontSize: SizeConfig.getScaleFontSize(12), color: Colors.black),
+                fontSize: SizeConfig.getScaleFontSize(12),
+                color: ThemeUtilities.primaryTextColor),
           )
         ],
       ),

@@ -11,6 +11,7 @@ import 'package:movie_world/provider/language_provider.dart';
 import 'package:movie_world/screens/all_list_movie/components/all_list_shimmer_screen/all_list_shimmer.dart';
 import 'package:movie_world/screens/home_page/models/movie_model.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
+import 'package:movie_world/utilities/theme_utilities.dart';
 import 'package:movie_world/widgets/header_search_bar.dart';
 import 'package:movie_world/widgets/horizontal_movie_list/components/movie_item.dart';
 import 'package:movie_world/widgets/image_show.dart';
@@ -261,7 +262,7 @@ class _AllListMovieState extends State<AllListMovie> {
                             style: TextStyle(
                                 fontSize: SizeConfig.getScaleFontSize(16),
                                 fontWeight: FontWeight.w500,
-                                color: Colors.black54),
+                                color: ThemeUtilities.secondaryTextColor),
                           ),
                         ],
                       ),

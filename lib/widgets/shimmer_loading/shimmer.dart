@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_world/utilities/theme_utilities.dart';
 import 'package:movie_world/widgets/shimmer_loading/shimmer_animation.dart';
 
 class Shimmer extends StatefulWidget {
@@ -32,7 +33,11 @@ class ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
   }
 
   LinearGradient get gradient => LinearGradient(
-        colors: [Color(0xFFEBEBF4), Color(0xFFF4F4F4), Color(0xFFEBEBF4)],
+        colors: [
+          ThemeUtilities.shimmerColor1,
+          ThemeUtilities.shimmerColor2,
+          ThemeUtilities.shimmerColor1
+        ],
         stops: [0.1, 0.3, 0.4],
         begin: Alignment(-1.0, -0.3),
         end: Alignment(1.0, 0.3),

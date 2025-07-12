@@ -4,6 +4,7 @@ import 'package:movie_world/gen/assets.gen.dart';
 import 'package:movie_world/gen/strings.dart';
 import 'package:movie_world/provider/language_provider.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
+import 'package:movie_world/utilities/theme_utilities.dart';
 import 'package:movie_world/widgets/svg_show.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +21,7 @@ class ChooseLanguageItem extends StatelessWidget {
         strings.language,
         style: TextStyle(
             fontSize: SizeConfig.getScaleFontSize(16),
-            color: Color(0xFF000000)),
+            color: ThemeUtilities.primaryTextColor),
       ),
       leading: SvgShow(
         uri: Assets.icons.icLanguage,
@@ -32,7 +33,7 @@ class ChooseLanguageItem extends StatelessWidget {
             strings.english,
             style: TextStyle(
                 fontSize: SizeConfig.getScaleFontSize(16),
-                color: Color(0xFF000000)),
+                color: ThemeUtilities.primaryTextColor),
           ),
           horizontalTitleGap: SizeConfig.getScaleWidth(8),
           trailing: languageSave == LanguageKey.english
@@ -56,7 +57,7 @@ class ChooseLanguageItem extends StatelessWidget {
             strings.vietnamese,
             style: TextStyle(
                 fontSize: SizeConfig.getScaleFontSize(16),
-                color: Color(0xFF000000)),
+                color: ThemeUtilities.primaryTextColor),
           ),
           horizontalTitleGap: SizeConfig.getScaleWidth(8),
           trailing: languageSave == LanguageKey.vietnamese

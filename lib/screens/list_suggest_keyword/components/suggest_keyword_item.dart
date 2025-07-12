@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
+import 'package:movie_world/utilities/theme_utilities.dart';
 
 class SuggestKeywordItem extends StatelessWidget {
   final Function onPressKeyword;
@@ -21,7 +22,8 @@ class SuggestKeywordItem extends StatelessWidget {
         child: Text(
           content,
           style: TextStyle(
-              fontSize: SizeConfig.getScaleFontSize(14), color: Colors.black),
+              fontSize: SizeConfig.getScaleFontSize(14),
+              color: ThemeUtilities.primaryTextColor),
         ),
       ),
     );

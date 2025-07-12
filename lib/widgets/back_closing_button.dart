@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_world/gen/assets.gen.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
+import 'package:movie_world/utilities/theme_utilities.dart';
 import 'package:movie_world/widgets/svg_show.dart';
 
 class BackClosingButton extends StatelessWidget {
@@ -13,7 +14,7 @@ class BackClosingButton extends StatelessWidget {
     return GestureDetector(
       child: SvgShow(
         uri: Assets.icons.icBack,
-        color: color ?? Colors.black54,
+        color: color ?? ThemeUtilities.iconColor,
         iconSize: SizeConfig.getScaleWidth(30),
       ),
       onTap: () {

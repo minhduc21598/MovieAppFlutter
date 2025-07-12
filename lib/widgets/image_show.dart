@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_world/constants/api_endpoint.dart';
+import 'package:movie_world/constants/color_value.dart';
 import 'package:movie_world/gen/assets.gen.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
 
@@ -46,7 +47,7 @@ class ImageShow extends StatelessWidget {
           : Container(
               width: width,
               height: height,
-              color: Color(0xFFDDDDDD),
+              color: ColorValue.imagePlaceholderBackground,
               child: Center(
                 child: Image.asset(
                   Assets.images.imagePlaceholder,

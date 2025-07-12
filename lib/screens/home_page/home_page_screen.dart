@@ -25,7 +25,6 @@ class HomePageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     final Strings strings = Strings.of(context)!;
     final language = context.watch<LanguageProvider>().language;
 

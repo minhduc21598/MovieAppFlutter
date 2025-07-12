@@ -22,17 +22,10 @@ class ScreenCommonAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: noAppBar == true
           ? null
           : AppBar(
-              backgroundColor: Colors.white,
-              title: Text(
-                title,
-                style: TextStyle(
-                    fontSize: SizeConfig.getScaleFontSize(16),
-                    fontWeight: FontWeight.bold),
-              ),
+              title: Text(title),
               centerTitle: true,
               actions: appBarActions,
               actionsPadding: EdgeInsets.symmetric(

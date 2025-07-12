@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
+import 'package:movie_world/utilities/theme_utilities.dart';
 import 'package:movie_world/widgets/shimmer_loading/item_shimmer.dart';
 import 'package:movie_world/widgets/shimmer_loading/shimmer_loading.dart';
 
@@ -12,7 +13,7 @@ class DetailShimmerScreen extends StatelessWidget {
     return Container(
       width: SizeConfig.screenWidth,
       height: SizeConfig.screenHeight,
-      color: Color(0xFFFFFFFF),
+      color: ThemeUtilities.scaffoldBackground,
       child: ShimmerLoading(
           isLoading: isLoading,
           child:

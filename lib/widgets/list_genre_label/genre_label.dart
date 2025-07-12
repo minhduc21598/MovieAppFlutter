@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
+import 'package:movie_world/utilities/theme_utilities.dart';
 
 class GenreLabel extends StatelessWidget {
   final String content;
@@ -14,11 +15,11 @@ class GenreLabel extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SizeConfig.getScaleWidth(100)),
             shape: BoxShape.rectangle,
-            color: Color(0xFFDBE3FF)),
+            color: ThemeUtilities.genreBackground),
         child: Text(content.toUpperCase(),
             style: TextStyle(
                 fontSize: SizeConfig.getScaleFontSize(10),
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF88A4E8))));
+                color: ThemeUtilities.genreTitle)));
   }
 }
