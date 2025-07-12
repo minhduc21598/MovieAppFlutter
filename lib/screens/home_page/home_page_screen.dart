@@ -57,6 +57,12 @@ class HomePageScreen extends StatelessWidget {
                 spacing: SizeConfig.getScaleHeight(16),
                 children: [
                   VerticalMovieList(
+                    title: strings.upcoming,
+                    apiEndpoint: ApiEndpoint.upcoming,
+                    movieType: MovieType.upComing,
+                    language: language,
+                  ),
+                  VerticalMovieList(
                     title: strings.popular,
                     apiEndpoint: ApiEndpoint.popular,
                     movieType: MovieType.popular,
@@ -68,12 +74,6 @@ class HomePageScreen extends StatelessWidget {
                     movieType: MovieType.topRated,
                     language: language,
                   ),
-                  VerticalMovieList(
-                    title: strings.upcoming,
-                    apiEndpoint: ApiEndpoint.upcoming,
-                    movieType: MovieType.upComing,
-                    language: language,
-                  )
                 ],
               )
             ],
