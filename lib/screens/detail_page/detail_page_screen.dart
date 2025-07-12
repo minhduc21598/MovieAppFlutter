@@ -99,7 +99,7 @@ class _DetailPageScreenState extends State<DetailPageScreen> {
               slivers: [
                 SliverAppBar(
                   pinned: true,
-                  expandedHeight: SizeConfig.getScaleHeight(200),
+                  expandedHeight: SizeConfig.getScaleHeight(180),
                   flexibleSpace: LayoutBuilder(
                     builder: (context, constraints) {
                       final double top = constraints.biggest.height;
@@ -108,18 +108,27 @@ class _DetailPageScreenState extends State<DetailPageScreen> {
 
                       return FlexibleSpaceBar(
                         background: ImageShow(
-                          height: SizeConfig.getScaleHeight(200),
+                          height: SizeConfig.getScaleHeight(180),
                           width: SizeConfig.screenWidth,
                           fitType: BoxFit.fill,
                           uri: detailData?.backdropPath,
                           borderRadius: 0,
                         ),
                         title: top <= appBarMinHeight
-                            ? Text(detailData?.title ?? '',
-                                style: TextStyle(
-                                    fontSize: SizeConfig.getScaleFontSize(16),
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFF000000)))
+                            ? Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: SizeConfig.getScaleWidth(48)),
+                                child: Text(
+                                  detailData?.title ?? '',
+                                  style: TextStyle(
+                                      fontSize: SizeConfig.getScaleFontSize(16),
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(0xFF000000)),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  textWidthBasis: TextWidthBasis.parent,
+                                ),
+                              )
                             : null,
                         centerTitle: true,
                       );
