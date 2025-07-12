@@ -33,7 +33,6 @@ class _MainApplicationState extends State<MainApplication> {
   Widget build(BuildContext context) {
     final routerConfig = MainRouter();
     final language = context.watch<LanguageProvider>().language;
-    SizeConfig.init(context);
 
     return MaterialApp.router(
       locale: Locale(language),
