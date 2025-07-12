@@ -35,14 +35,18 @@ class _MovieTrailersState extends State<MovieTrailers> {
     try {
       Response response = await NetworkClient.dio
           .get('${ApiEndpoint.movie}/${widget.movieId}${ApiEndpoint.videos}');
+      final trailersData = (response.data['results'] as List)
+          .map((item) => TrailerModel.fromJson(item as Map<String, dynamic>))
+          .where((trailer) =>
+              trailer.site == 'YouTube' && trailer.type == 'Trailer')
+          .toList();
+      final teasersData = (response.data['results'] as List)
+          .map((item) => TrailerModel.fromJson(item as Map<String, dynamic>))
+          .where((trailer) =>
+              trailer.site == 'YouTube' && trailer.type == 'Teaser')
+          .toList();
       setState(() {
-        trailers = (response.data['results'] as List)
-            .map((item) => TrailerModel.fromJson(item as Map<String, dynamic>))
-            .where((trailer) =>
-                trailer.site == 'YouTube' &&
-                trailer.type == 'Trailer' &&
-                (trailer.size ?? 0) > 1080)
-            .toList();
+        trailers = trailersData.isNotEmpty ? trailersData : teasersData;
       });
       isLoading = false;
     } catch (e) {

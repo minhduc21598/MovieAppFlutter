@@ -199,7 +199,8 @@ class _DetailPageScreenState extends State<DetailPageScreen> {
                                       detailData?.releaseDate ?? ''))
                           ],
                         ),
-                        if (detailData?.overview != null)
+                        if (detailData?.overview != null &&
+                            detailData!.overview!.isNotEmpty)
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
