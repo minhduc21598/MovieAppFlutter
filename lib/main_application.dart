@@ -9,6 +9,7 @@ import 'package:movie_world/main_controller.dart';
 import 'package:movie_world/main_router.dart';
 import 'package:movie_world/provider/language_provider.dart';
 import 'package:movie_world/utilities/local_storage_utilities.dart';
+import 'package:movie_world/utilities/size_config_utitilites.dart';
 import 'package:movie_world/utilities/theme_utilities.dart';
 import 'package:provider/provider.dart';
 
@@ -66,6 +67,7 @@ class _MainApplicationState extends State<MainApplication> {
         ),
       ],
       builder: (context, child) {
+        SizeConfig.init(context);
         final MainController controller = context.watch();
         final language = context.watch<LanguageProvider>().language;
 

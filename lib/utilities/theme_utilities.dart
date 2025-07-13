@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_world/constants/color_theme.dart';
+import 'package:movie_world/utilities/size_config_utitilites.dart';
 
 class ThemeUtilities {
   static ThemeMode themeMode = ThemeMode.light;
@@ -47,7 +48,9 @@ class ThemeUtilities {
         backgroundColor: appBarBackground,
         foregroundColor: appBarForeground,
         titleTextStyle: TextStyle(
-            fontSize: 16, fontWeight: FontWeight.bold, color: appBarForeground),
+            fontSize: SizeConfig.getScaleFontSize(16),
+            fontWeight: FontWeight.bold,
+            color: appBarForeground),
         iconTheme: IconThemeData(color: appBarForeground));
   }
 
