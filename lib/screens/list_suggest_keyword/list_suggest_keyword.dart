@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_world/constants/api_endpoint.dart';
-import 'package:movie_world/constants/color_value.dart';
 import 'package:movie_world/constants/movie_type.dart';
 import 'package:movie_world/constants/route_name.dart';
 import 'package:movie_world/core/network_client.dart';
@@ -10,6 +9,7 @@ import 'package:movie_world/screens/all_list_movie/all_list_movie_param.dart';
 import 'package:movie_world/screens/list_suggest_keyword/components/suggest_keyword_item.dart';
 import 'package:movie_world/screens/list_suggest_keyword/models/suggest_keyword_model.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
+import 'package:movie_world/utilities/theme_utilities.dart';
 import 'package:movie_world/widgets/header_search_bar.dart';
 
 class ListSuggestKeyword extends StatefulWidget {
@@ -99,7 +99,7 @@ class _ListSuggestKeywordState extends State<ListSuggestKeyword> {
                             horizontal: SizeConfig.getScaleWidth(16)),
                         child: Divider(
                           thickness: 0.2,
-                          color: ColorValue.borderColor,
+                          color: ThemeUtilities.borderColor,
                         ),
                       ),
                   itemCount: suggestKeywords.length)),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_world/constants/color_value.dart';
+import 'package:movie_world/constants/color_theme.dart';
 import 'package:movie_world/constants/theme_mode_key.dart';
 
 class ThemeUtilities {
@@ -10,32 +10,37 @@ class ThemeUtilities {
   static bool get isDarkMode => themeMode == ThemeMode.dark;
 
   static Color get scaffoldBackground =>
-      isDarkMode ? ColorValue.darkBackground : ColorValue.lightBackground;
+      isDarkMode ? ColorTheme.darkBackground : ColorTheme.lightBackground;
   static Color get appBarBackground =>
-      isDarkMode ? ColorValue.darkBackground : ColorValue.lightBackground;
+      isDarkMode ? ColorTheme.darkBackground : ColorTheme.lightBackground;
   static Color get appBarForeground =>
-      isDarkMode ? ColorValue.darkPrimaryText : ColorValue.lightPrimaryText;
+      isDarkMode ? ColorTheme.darkPrimaryText : ColorTheme.lightPrimaryText;
   static Color get iconColor =>
-      isDarkMode ? ColorValue.darkIcon : ColorValue.lightIcon;
+      isDarkMode ? ColorTheme.darkIcon : ColorTheme.lightIcon;
   static Color get primaryTextColor =>
-      isDarkMode ? ColorValue.darkPrimaryText : ColorValue.lightPrimaryText;
+      isDarkMode ? ColorTheme.darkPrimaryText : ColorTheme.lightPrimaryText;
   static Color get secondaryTextColor =>
-      isDarkMode ? ColorValue.darkSecondaryText : ColorValue.lightSecondaryText;
+      isDarkMode ? ColorTheme.darkSecondaryText : ColorTheme.lightSecondaryText;
   static Color get genreTitle =>
-      isDarkMode ? ColorValue.darkGenreTitle : ColorValue.lightGenreTitle;
+      isDarkMode ? ColorTheme.darkGenreTitle : ColorTheme.lightGenreTitle;
   static Color get genreBackground => isDarkMode
-      ? ColorValue.darkGenreBackground
-      : ColorValue.lightGenreBackground;
-  static Color get imagePlaceholderBackground => isDarkMode
-      ? ColorValue.darkGenreBackground
-      : ColorValue.lightGenreBackground;
+      ? ColorTheme.darkGenreBackground
+      : ColorTheme.lightGenreBackground;
   static Color get shimmerColor1 =>
-      isDarkMode ? ColorValue.darkShimmerColor1 : ColorValue.lightShimmerColor1;
+      isDarkMode ? ColorTheme.darkShimmerColor1 : ColorTheme.lightShimmerColor1;
   static Color get shimmerColor2 =>
-      isDarkMode ? ColorValue.darkShimmerColor2 : ColorValue.lightShimmerColor2;
+      isDarkMode ? ColorTheme.darkShimmerColor2 : ColorTheme.lightShimmerColor2;
   static Color get textFieldBackground => isDarkMode
-      ? ColorValue.darkTextFieldBackground
-      : ColorValue.lightTextFieldBackground;
+      ? ColorTheme.darkTextFieldBackground
+      : ColorTheme.lightTextFieldBackground;
+  static Color get borderColor =>
+      isDarkMode ? ColorTheme.borderColor : ColorTheme.borderColor;
+  static Color get imagePlaceholderBackground => isDarkMode
+      ? ColorTheme.imagePlaceholderBackground
+      : ColorTheme.imagePlaceholderBackground;
+  static Color get floatButtonBackground => isDarkMode
+      ? ColorTheme.floatButtonBackground
+      : ColorTheme.floatButtonBackground;
 
   static AppBarTheme createAppBarTheme() {
     return AppBarTheme(

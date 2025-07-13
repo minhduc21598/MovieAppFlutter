@@ -1,10 +1,9 @@
 import 'package:flutter/rendering.dart';
 
-class ColorValue {
+class ColorTheme {
   static const imagePlaceholderBackground = Color(0xFFDDDDDD);
   static const borderColor = Color(0xFF92929D);
   static const floatButtonBackground = Color.fromRGBO(255, 255, 255, 0.6);
-
   static const lightBackground = Color(0xFFFFFFFF);
   static const darkBackground = Color(0xFF1F1D2B);
   static const lightPrimaryText = Color(0xFF000000);

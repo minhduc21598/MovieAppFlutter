@@ -18,7 +18,7 @@ class RatingPoint extends StatelessWidget {
         SvgShow(
           uri: Assets.icons.icRatingStar,
           iconSize: SizeConfig.getScaleHeight(12),
-          color: Colors.yellow[600],
+          noColorFilter: true,
         ),
         Text(
           '$roundedRate/10 IMDb',

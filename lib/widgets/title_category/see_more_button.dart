@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movie_world/constants/color_value.dart';
 import 'package:movie_world/gen/strings.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
 import 'package:movie_world/utilities/theme_utilities.dart';
@@ -20,7 +19,7 @@ class SeeMoreButton extends StatelessWidget {
         decoration: BoxDecoration(
             border: Border.all(
                 width: SizeConfig.getScaleWidth(0.8),
-                color: ColorValue.borderColor),
+                color: ThemeUtilities.borderColor),
             borderRadius: BorderRadius.all(
                 Radius.circular(SizeConfig.getScaleWidth(100)))),
         padding: EdgeInsets.fromLTRB(

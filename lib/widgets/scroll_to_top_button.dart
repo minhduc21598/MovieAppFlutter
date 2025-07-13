@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie_world/constants/color_value.dart';
 import 'package:movie_world/gen/assets.gen.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
+import 'package:movie_world/utilities/theme_utilities.dart';
 import 'package:movie_world/widgets/svg_show.dart';
 
 class ScrollToTopButton extends StatelessWidget {
@@ -20,7 +20,7 @@ class ScrollToTopButton extends StatelessWidget {
         height: SizeConfig.getScaleWidth(50),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: ColorValue.floatButtonBackground,
+          color: ThemeUtilities.floatButtonBackground,
         ),
         child: SvgShow(
           uri: Assets.icons.icDoubleArrow,
