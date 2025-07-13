@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:movie_world/constants/local_storage_key.dart';
+import 'package:movie_world/constants/theme_mode_key.dart';
 import 'package:movie_world/gen/assets.gen.dart';
 import 'package:movie_world/gen/strings.dart';
+import 'package:movie_world/main_controller.dart';
+import 'package:movie_world/utilities/local_storage_utilities.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
 import 'package:movie_world/utilities/theme_utilities.dart';
 import 'package:movie_world/widgets/svg_show.dart';
+import 'package:provider/provider.dart';
 
 class ChooseThemeMode extends StatelessWidget {
   const ChooseThemeMode({super.key});
@@ -11,6 +16,14 @@ class ChooseThemeMode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Strings strings = Strings.of(context)!;
+    final MainController controller = context.read();
+
+    Future<void> onChangeTheme(String themeMode) async {
+      controller.saveThemeMode(
+          themeMode == ThemeModeKey.dark ? ThemeMode.dark : ThemeMode.light);
+      await LocalStorage.setValue(LocalStorageKey.themeMode, themeMode);
+      if (context.mounted) Navigator.pop(context);
+    }
 
     return ExpansionTile(
       title: Text(
@@ -39,7 +52,7 @@ class ChooseThemeMode extends StatelessWidget {
             iconSize: SizeConfig.getScaleWidth(18),
           ),
           onTap: () {
-            Navigator.pop(context);
+            onChangeTheme(ThemeModeKey.dark);
           },
         ),
         ListTile(
@@ -57,7 +70,7 @@ class ChooseThemeMode extends StatelessWidget {
             iconSize: SizeConfig.getScaleWidth(18),
           ),
           onTap: () {
-            Navigator.pop(context);
+            onChangeTheme(ThemeModeKey.light);
           },
         )
       ],

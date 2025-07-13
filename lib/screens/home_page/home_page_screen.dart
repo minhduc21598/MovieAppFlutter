@@ -5,6 +5,7 @@ import 'package:movie_world/constants/movie_type.dart';
 import 'package:movie_world/constants/route_name.dart';
 import 'package:movie_world/gen/assets.gen.dart';
 import 'package:movie_world/gen/strings.dart';
+import 'package:movie_world/main_controller.dart';
 import 'package:movie_world/provider/language_provider.dart';
 import 'package:movie_world/screens/all_list_movie/all_list_movie_param.dart';
 import 'package:movie_world/screens/home_page/drawer_item/drawer_item.dart';
@@ -28,56 +29,59 @@ class HomePageScreen extends StatelessWidget {
     SizeConfig.init(context);
     final Strings strings = Strings.of(context)!;
     final language = context.watch<LanguageProvider>().language;
+    final MainController controller = context.watch();
 
-    return ScreenCommonAppBar(
-        title: strings.homepage,
-        drawerItem: DrawerItem(),
-        appBarActions: [
-          GestureDetector(
-            onTap: () {
-              context.push(RouteName.listSuggestKeyword);
-            },
-            child: SvgShow(uri: Assets.icons.icSearch),
-          )
-        ],
-        child: SingleChildScrollView(
-          padding:
-              EdgeInsets.symmetric(horizontal: SizeConfig.getScaleWidth(16)),
-          child: Column(
-            children: [
-              HorizontalMovieList(
-                endpoint: ApiEndpoint.nowPlaying,
-                title: strings.now_showing,
-                onSeeMore: () {
-                  goToAllMovieList(context);
+    return !controller.isLoading
+        ? ScreenCommonAppBar(
+            title: strings.homepage,
+            drawerItem: DrawerItem(),
+            appBarActions: [
+              GestureDetector(
+                onTap: () {
+                  context.push(RouteName.listSuggestKeyword);
                 },
-                language: language,
-              ),
-              Column(
-                spacing: SizeConfig.getScaleHeight(16),
-                children: [
-                  VerticalMovieList(
-                    title: strings.upcoming,
-                    apiEndpoint: ApiEndpoint.upcoming,
-                    movieType: MovieType.upComing,
-                    language: language,
-                  ),
-                  VerticalMovieList(
-                    title: strings.popular,
-                    apiEndpoint: ApiEndpoint.popular,
-                    movieType: MovieType.popular,
-                    language: language,
-                  ),
-                  VerticalMovieList(
-                    title: strings.top_rated,
-                    apiEndpoint: ApiEndpoint.topRated,
-                    movieType: MovieType.topRated,
-                    language: language,
-                  ),
-                ],
+                child: SvgShow(uri: Assets.icons.icSearch),
               )
             ],
-          ),
-        ));
+            child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(
+                  horizontal: SizeConfig.getScaleWidth(16)),
+              child: Column(
+                children: [
+                  HorizontalMovieList(
+                    endpoint: ApiEndpoint.nowPlaying,
+                    title: strings.now_showing,
+                    onSeeMore: () {
+                      goToAllMovieList(context);
+                    },
+                    language: language,
+                  ),
+                  Column(
+                    spacing: SizeConfig.getScaleHeight(16),
+                    children: [
+                      VerticalMovieList(
+                        title: strings.upcoming,
+                        apiEndpoint: ApiEndpoint.upcoming,
+                        movieType: MovieType.upComing,
+                        language: language,
+                      ),
+                      VerticalMovieList(
+                        title: strings.popular,
+                        apiEndpoint: ApiEndpoint.popular,
+                        movieType: MovieType.popular,
+                        language: language,
+                      ),
+                      VerticalMovieList(
+                        title: strings.top_rated,
+                        apiEndpoint: ApiEndpoint.topRated,
+                        movieType: MovieType.topRated,
+                        language: language,
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ))
+        : Container();
   }
 }
