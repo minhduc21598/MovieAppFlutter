@@ -73,4 +73,13 @@ class StringsEn extends Strings {
 
   @override
   String get no_result => 'No result found';
+
+  @override
+  String get on => 'On';
+
+  @override
+  String get off => 'Off';
+
+  @override
+  String get dark_mode => 'Dark mode';
 }

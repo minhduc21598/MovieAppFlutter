@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:movie_world/constants/language_key.dart';
 import 'package:movie_world/constants/local_storage_key.dart';
 import 'package:movie_world/utilities/local_storage_utilities.dart';

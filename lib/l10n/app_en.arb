@@ -21,5 +21,8 @@
   "trailers": "Trailers",
   "loading": "Loading more...",
   "enter_movie_name": "Enter movie name",
-  "no_result": "No result found"
+  "no_result": "No result found",
+  "on": "On",
+  "off": "Off",
+  "dark_mode": "Dark mode"
 }

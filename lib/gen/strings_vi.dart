@@ -73,4 +73,13 @@ class StringsVi extends Strings {
 
   @override
   String get no_result => 'Không tìm thấy kết quả nào';
+
+  @override
+  String get on => 'Bật';
+
+  @override
+  String get off => 'Tắt';
+
+  @override
+  String get dark_mode => 'Chế độ nền tối';
 }

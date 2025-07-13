@@ -226,6 +226,24 @@ abstract class Strings {
   /// In en, this message translates to:
   /// **'No result found'**
   String get no_result;
+
+  /// No description provided for @on.
+  ///
+  /// In en, this message translates to:
+  /// **'On'**
+  String get on;
+
+  /// No description provided for @off.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get off;
+
+  /// No description provided for @dark_mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark mode'**
+  String get dark_mode;
 }
 
 class _StringsDelegate extends LocalizationsDelegate<Strings> {

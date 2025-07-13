@@ -12,6 +12,9 @@ class $AssetsIconsGen {
   String get icDoubleArrow => 'assets/icons/ic_double_arrow.svg';
   String get icSearch => 'assets/icons/ic_search.svg';
   String get icClose => 'assets/icons/ic_close.svg';
+  String get icThemeMode => 'assets/icons/ic_theme_mode.svg';
+  String get icRadioChecked => 'assets/icons/ic_radio_checked.svg';
+  String get icRadioUnchecked => 'assets/icons/ic_radio_unchecked.svg';
 }
 
 class $AssetsImagesGen {

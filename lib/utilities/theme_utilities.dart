@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_world/constants/color_theme.dart';
-import 'package:movie_world/constants/theme_mode_key.dart';
 
 class ThemeUtilities {
-  static ThemeMode createThemeMode(String mode) =>
-      mode == ThemeModeKey.dark ? ThemeMode.dark : ThemeMode.light;
-
   static ThemeMode themeMode = ThemeMode.light;
   static bool get isDarkMode => themeMode == ThemeMode.dark;
 
@@ -41,6 +37,10 @@ class ThemeUtilities {
   static Color get floatButtonBackground => isDarkMode
       ? ColorTheme.floatButtonBackground
       : ColorTheme.floatButtonBackground;
+
+  static void createThemeMode(ThemeMode mode) {
+    themeMode = mode;
+  }
 
   static AppBarTheme createAppBarTheme() {
     return AppBarTheme(
