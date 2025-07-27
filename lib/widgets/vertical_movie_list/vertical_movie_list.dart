@@ -2,10 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_world/constants/api_endpoint.dart';
-import 'package:movie_world/constants/language_key.dart';
 import 'package:movie_world/constants/movie_type.dart';
 import 'package:movie_world/constants/route_name.dart';
 import 'package:movie_world/core/network_client.dart';
+import 'package:movie_world/provider/language_provider.dart';
 import 'package:movie_world/screens/all_list_movie/all_list_movie_param.dart';
 import 'package:movie_world/screens/home_page/models/genre_model.dart';
 import 'package:movie_world/screens/home_page/models/movie_model.dart';
@@ -14,20 +14,19 @@ import 'package:movie_world/widgets/shimmer_loading/shimmer.dart';
 import 'package:movie_world/widgets/title_category/title_category.dart';
 import 'package:movie_world/widgets/vertical_movie_list/components/movie_item.dart';
 import 'package:movie_world/widgets/vertical_movie_list/components/vertical_movie_list_shimmer/vertical_list_shimmer.dart';
+import 'package:provider/provider.dart';
 
 class VerticalMovieList extends StatefulWidget {
   final String title;
   final String apiEndpoint;
   final int? limitItemShow;
   final MovieType? movieType;
-  final String? language;
   const VerticalMovieList(
       {super.key,
       required this.title,
       required this.apiEndpoint,
       this.limitItemShow = 5,
-      this.movieType,
-      this.language});
+      this.movieType});
 
   @override
   State<VerticalMovieList> createState() => _VerticalMovieListState();
@@ -39,9 +38,9 @@ class _VerticalMovieListState extends State<VerticalMovieList> {
   bool isLoadingMovies = false;
   bool isLoadingGenres = false;
 
-  void _fetchData() {
-    getListMovies();
-    getListGenres();
+  void _fetchData([String? language]) {
+    getListMovies(language);
+    getListGenres(language);
   }
 
   @override
@@ -51,22 +50,21 @@ class _VerticalMovieListState extends State<VerticalMovieList> {
   }
 
   @override
-  void didUpdateWidget(covariant VerticalMovieList oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.language != widget.language) {
-      _fetchData();
-    }
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final language = context.watch<LanguageProvider>().language;
+    _fetchData(language);
   }
 
-  Future<void> getListGenres() async {
+  Future<void> getListGenres([String? language]) async {
     setState(() {
       isLoadingGenres = true;
     });
+
     try {
+      final defaultLanguage = context.read<LanguageProvider>().language;
       Response response = await NetworkClient.dio.get(ApiEndpoint.genres,
-          queryParameters: {
-            'language': widget.language ?? LanguageKey.english
-          });
+          queryParameters: {'language': language ?? defaultLanguage});
       setState(() {
         genresData = (response.data['genres'] as List)
             .map((item) => GenreModel.fromJson(item as Map<String, dynamic>))
@@ -80,18 +78,18 @@ class _VerticalMovieListState extends State<VerticalMovieList> {
     }
   }
 
-  Future<void> getListMovies() async {
+  Future<void> getListMovies([String? language]) async {
     setState(() {
       isLoadingMovies = true;
       if (movies.isNotEmpty) {
         movies = [];
       }
     });
+
     try {
+      final defaultLanguage = context.read<LanguageProvider>().language;
       Response response = await NetworkClient.dio.get(widget.apiEndpoint,
-          queryParameters: {
-            'language': widget.language ?? LanguageKey.english
-          });
+          queryParameters: {'language': language ?? defaultLanguage});
       setState(() {
         movies = (response.data['results'] as List)
             .map((item) => MovieModel.fromJson(item as Map<String, dynamic>))

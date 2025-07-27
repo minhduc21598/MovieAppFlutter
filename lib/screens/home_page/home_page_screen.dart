@@ -6,7 +6,6 @@ import 'package:movie_world/constants/route_name.dart';
 import 'package:movie_world/gen/assets.gen.dart';
 import 'package:movie_world/gen/strings.dart';
 import 'package:movie_world/main_controller.dart';
-import 'package:movie_world/provider/language_provider.dart';
 import 'package:movie_world/screens/all_list_movie/all_list_movie_param.dart';
 import 'package:movie_world/screens/home_page/drawer_item/drawer_item.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
@@ -27,7 +26,6 @@ class HomePageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Strings strings = Strings.of(context)!;
-    final language = context.watch<LanguageProvider>().language;
     final MainController controller = context.watch();
 
     return !controller.isLoading
@@ -53,7 +51,6 @@ class HomePageScreen extends StatelessWidget {
                     onSeeMore: () {
                       goToAllMovieList(context);
                     },
-                    language: language,
                   ),
                   Column(
                     spacing: SizeConfig.getScaleHeight(16),
@@ -62,19 +59,16 @@ class HomePageScreen extends StatelessWidget {
                         title: strings.upcoming,
                         apiEndpoint: ApiEndpoint.upcoming,
                         movieType: MovieType.upComing,
-                        language: language,
                       ),
                       VerticalMovieList(
                         title: strings.popular,
                         apiEndpoint: ApiEndpoint.popular,
                         movieType: MovieType.popular,
-                        language: language,
                       ),
                       VerticalMovieList(
                         title: strings.top_rated,
                         apiEndpoint: ApiEndpoint.topRated,
                         movieType: MovieType.topRated,
-                        language: language,
                       ),
                     ],
                   )

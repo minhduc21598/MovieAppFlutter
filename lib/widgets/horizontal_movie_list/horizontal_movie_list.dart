@@ -1,25 +1,21 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_world/constants/language_key.dart';
 import 'package:movie_world/core/network_client.dart';
+import 'package:movie_world/provider/language_provider.dart';
 import 'package:movie_world/screens/home_page/models/movie_model.dart';
 import 'package:movie_world/utilities/size_config_utitilites.dart';
 import 'package:movie_world/widgets/horizontal_movie_list/components/horizontal_list_shimmer/horizontal_list_shimmer.dart';
 import 'package:movie_world/widgets/horizontal_movie_list/components/movie_item.dart';
 import 'package:movie_world/widgets/shimmer_loading/shimmer.dart';
 import 'package:movie_world/widgets/title_category/title_category.dart';
+import 'package:provider/provider.dart';
 
 class HorizontalMovieList extends StatefulWidget {
   final String endpoint;
   final String title;
   final Function? onSeeMore;
-  final String? language;
   const HorizontalMovieList(
-      {super.key,
-      required this.endpoint,
-      required this.title,
-      this.onSeeMore,
-      this.language});
+      {super.key, required this.endpoint, required this.title, this.onSeeMore});
 
   @override
   State<HorizontalMovieList> createState() => _HorizontalMovieListState();
@@ -36,25 +32,24 @@ class _HorizontalMovieListState extends State<HorizontalMovieList> {
   }
 
   @override
-  void didUpdateWidget(covariant HorizontalMovieList oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.language != widget.language) {
-      getListMovie();
-    }
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final language = context.watch<LanguageProvider>().language;
+    getListMovie(language);
   }
 
-  Future<void> getListMovie() async {
+  Future<void> getListMovie([String? language]) async {
     setState(() {
       isLoading = true;
       if (movies.isNotEmpty) {
         movies = [];
       }
     });
+
     try {
+      final defaultLanguage = context.read<LanguageProvider>().language;
       Response response = await NetworkClient.dio.get(widget.endpoint,
-          queryParameters: {
-            'language': widget.language ?? LanguageKey.english
-          });
+          queryParameters: {'language': language ?? defaultLanguage});
       setState(() {
         movies = (response.data['results'] as List)
             .map((item) => MovieModel.fromJson(item as Map<String, dynamic>))

@@ -87,7 +87,6 @@ class _DetailPageScreenState extends State<DetailPageScreen> {
             .toList()
             .join(", ") ??
         '';
-    final language = context.read<LanguageProvider>().language;
 
     return isLoading
         ? Shimmer(
@@ -227,13 +226,11 @@ class _DetailPageScreenState extends State<DetailPageScreen> {
                         endpoint:
                             '${ApiEndpoint.movie}/${widget.movieId}${ApiEndpoint.recommendations}',
                         title: strings.recommendations,
-                        language: language,
                       ),
                       HorizontalMovieList(
                         endpoint:
                             '${ApiEndpoint.movie}/${widget.movieId}${ApiEndpoint.similar}',
                         title: strings.similar,
-                        language: language,
                       ),
                     ],
                   ),
