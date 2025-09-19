@@ -22,4 +22,6 @@ class ColorTheme {
   static const darkShimmerColor2 = Color(0xFFCCCCCC);
   static const lightTextFieldBackground = Color(0xFFF2F2F2);
   static const darkTextFieldBackground = Color(0xFF252836);
+  static const lightSeemoreText = Color(0xFF92929D);
+  static const darkSeemoreText = Color(0xFF12CDD9);
 }

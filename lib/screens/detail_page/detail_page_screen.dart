@@ -177,6 +177,7 @@ class _DetailPageScreenState extends State<DetailPageScreen> {
                       ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: SizeConfig.getScaleWidth((8)),
                         children: [
                           AddtionalInfo(
                               title: strings.length,

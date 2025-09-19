@@ -11,7 +11,7 @@ class AddtionalInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: (SizeConfig.screenWidth - SizeConfig.getScaleWidth(32)) / 3,
+      width: (SizeConfig.screenWidth - SizeConfig.getScaleWidth(48)) / 3,
       child: Column(
           spacing: SizeConfig.getScaleHeight(4),
           crossAxisAlignment: CrossAxisAlignment.start,

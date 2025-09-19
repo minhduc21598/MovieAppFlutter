@@ -16,12 +16,6 @@ class SeeMoreButton extends StatelessWidget {
         onSeeMore();
       },
       child: Container(
-        decoration: BoxDecoration(
-            border: Border.all(
-                width: SizeConfig.getScaleWidth(0.8),
-                color: ThemeUtilities.borderColor),
-            borderRadius: BorderRadius.all(
-                Radius.circular(SizeConfig.getScaleWidth(100)))),
         padding: EdgeInsets.fromLTRB(
             SizeConfig.getScaleWidth(8),
             SizeConfig.getScaleWidth(4),
@@ -30,9 +24,9 @@ class SeeMoreButton extends StatelessWidget {
         child: Text(
           strings.see_more,
           style: TextStyle(
-              color: ThemeUtilities.secondaryTextColor,
-              fontSize: SizeConfig.getScaleFontSize(10),
-              fontWeight: FontWeight.normal),
+              color: ThemeUtilities.seemoreTextColor,
+              fontSize: SizeConfig.getScaleFontSize(14),
+              fontWeight: FontWeight.w500),
         ),
       ),
     );

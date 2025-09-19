@@ -38,6 +38,9 @@ class ThemeUtilities {
   static Color get floatButtonBackground => isDarkMode
       ? ColorTheme.floatButtonBackground
       : ColorTheme.floatButtonBackground;
+  static Color get seemoreTextColor => isDarkMode
+      ? ColorTheme.darkSeemoreText
+      : ColorTheme.lightSeemoreText;
 
   static void createThemeMode(ThemeMode mode) {
     themeMode = mode;
